@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import img1 from "../assets/banner1.jpg"; // Import your images here
-import img2 from "../assets/banner2.jpg"; // Import your images here
-import img3 from "../assets/banner3.jpg"; // Import your images here
-
+import img1 from "../assets/banner1.jpg"; 
+import img2 from "../assets/banner2.jpg"; 
+import img3 from "../assets/banner3.jpg"; 
+import {Link} from "react-dom"
+import Logindia from "./Logindia";
 const Hero = () => {
   const images = [img1, img2, img3]; // Use the actual images
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,7 +29,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="bg-gray-100 text-center py-10 relative">
+    <section className="bg-gray-100 text-center py-10 relative" id="Hero">
     {/* Carousel Container */}
     <div className="relative w-full h-60 sm:h-70 md:h-96 lg:h-[500px] overflow-hidden">
       {/* Carousel Images */}
@@ -54,9 +55,15 @@ const Hero = () => {
         <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 text-white">
           Join our platform to connect with skilled professionals and learn something new every day.
         </p>
-        <button className="bg-blue-600 text-white py-2 px-4 sm:py-2 sm:px-6 md:py-3 md:px-8 rounded-lg hover:bg-blue-700">
+       
+        
+        
+        <button className="bg-blue-600 text-white py-2 px-4 sm:py-2 sm:px-6 md:py-3 md:px-8 rounded-lg hover:bg-blue-700" >
           Get Started
         </button>
+        
+        
+        
       </div>
     </div>
 

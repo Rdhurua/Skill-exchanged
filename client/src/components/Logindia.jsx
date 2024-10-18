@@ -10,7 +10,7 @@ import React, { useState } from 'react';
     <>
       <button
         onClick={handleOpen}
-        className="block text-white px-14 py-2 lg:px-3 lg:py-1 text-lg md:text-md font-medium hover:bg-blue-600 bg-blue-500 rounded"
+        className="block text-white px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-medium  hover:bg-blue-600 bg-blue-500 rounded text-nowrap"
         type="button"
       >
         Log In
