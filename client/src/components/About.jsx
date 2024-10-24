@@ -2,7 +2,9 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div className="max-h-screen w-auto border-2 border-gray-200 p-6 md:p-10" id='About'>
+     <section id='About'className="bg-white py-10 md:py-20">
+
+    <div className="max-h-screen w-auto border-2 border-gray-200 p-6 md:p-10" >
     <h1 className="text-4xl text-black text-center font-bold mb-6 transition-all duration-700 ease-in-out opacity-0 animate-fade-in">
       About
     </h1>
@@ -25,6 +27,7 @@ const About = () => {
       </div>
     </div>
   </div>
+     </section>
   
   
   )

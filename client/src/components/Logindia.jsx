@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import{ Link} from "react-router-dom"
 
  const Logindia = ({ value }) => {
   const [isOpen, setOpen] = useState(value);
@@ -23,7 +24,7 @@ import React, { useState } from 'react';
        aria-hidden="true"
        className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-60 px-4 sm:px-0"
      >
-       <div className="relative p-4 w-full max-w-lg max-h-full">
+       <div className="relative p-4 w-full max-w-xl max-h-xl">
          <div className="relative bg-white rounded-lg shadow-lg">
            {/* Header */}
            <div className="flex items-center justify-between p-5 border-b border-gray-200 rounded-t">
@@ -124,13 +125,14 @@ import React, { useState } from 'react';
      
                {/* Register Link */}
                <p className="text-sm font-medium text-gray-500 text-center">
-                 Not registered?{' '}
-                 <a
-                   href="#"
+                 Don't have account?{' '}
+                 {/* <a
+                   href="/CreateAccount"
                    className="text-blue-600 hover:underline dark:text-blue-500"
                  >
                    Create account
-                 </a>
+                 </a> */}
+                 <Link to={"/CreateAccount"}  className="text-blue-600 hover:underline dark:text-blue-500">CreateAccount</Link>
                </p>
              </form>
            </div>

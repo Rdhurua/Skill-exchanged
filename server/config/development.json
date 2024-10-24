@@ -1,0 +1,4 @@
+{
+    "MONGODB_URL":"mongodb+srv://dhuruarinku574:p4m82XiePBnmE6hb@cluster0.xidhx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    "MONGODB_URL2":"mongodb://localhost:27017"
+}
