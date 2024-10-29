@@ -2,6 +2,7 @@ const express=require("express");
 const app=express();
 const cors=require("cors");
 const db=require("./config/mongoose-connection");
+const cookieParser=require("cookie-parser")
 const usersRouter=require("./routes/usersRouter")
 const bodyParser=require("body-parser");
 require("dotenv").config();
@@ -11,7 +12,7 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-
+app.use(cookieParser());
 
 app.use("/users",usersRouter);
 // app.use("/admin",adminRouter);
