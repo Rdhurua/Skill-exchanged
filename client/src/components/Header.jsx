@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Logindia from "./Logindia.jsx";
 import logo from "../assets/fg.png";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +10,11 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
   return (
     <div className="bg-gray-100 text-blue-600 p-4 sticky top-0 z-30 shadow-md shadow-black">
       <nav className="flex flex-col md:flex-row md:justify-between md:items-center max-w-7xl mx-auto">
@@ -35,25 +40,78 @@ const Header = () => {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex md:space-x-4 lg:space-x-6 items-center mt-4 md:mt-0">
+        <ul className="hidden md:flex md:space-x-4 md:mr-14 lg:space-x-6 items-center mt-4 md:mt-0">
           <li><a href="/" className="hover:underline text-lg hover:text-blue-700 font-semibold">Home</a></li>
           <li><a href="#About" className="hover:underline text-lg hover:text-blue-700 font-semibold">About</a></li>
           <li><a href="#Features" className="hover:underline text-lg hover:text-blue-700 font-semibold">Features</a></li>
           <li><a href="#" className="hover:underline text-lg hover:text-blue-700 font-semibold">Contact</a></li>
-          <li className="lg:ml-4" ><Logindia value={false} /></li>
+          <li className="relative">
+        <button
+          onClick={toggleDropdown}
+          className=" text-lg bg-blue-500 py-1 px-3 rounded-lg text-white font-semibold focus:outline-none"
+        >
+          Login
+        </button>
+        {dropdownOpen && (
+          <ul className="absolute left-0 mt-2 bg-gray-200 rounded-md shadow-lg py-2">
+            <li>
+              <Link to={"/AdminLogin"} className="block px-4 py-2 hover:bg-blue-500 hover:text-white">Admin</Link>
+            </li>
+            <li><Logindia value={false} handle={toggleDropdown} /></li>
+          </ul>
+        )}
+      </li>
 
         </ul>
 
         {/* Mobile Menu (Visible when isOpen is true) */}
         {isOpen && (
-          <ul className="md:hidden flex flex-col items-center space-y-4 mt-4 md:mt-0 bg-gray-300 rounded-sm py-2">
-            <li><a href="/" className="hover:underline text-lg hover:text-blue-700 font-semibold">Home</a></li>
-            <li><a href="#About" className="hover:underline text-lg hover:text-blue-700 font-semibold" onClick={toggleMenu}>About</a></li>
-            <li><a href="#Features" className="hover:underline text-lg hover:text-blue-700 font-semibold" onClick={toggleMenu}>Features</a></li>
-            <li><a href="#" className="hover:underline text-lg hover:text-blue-700 font-semibold" onClick={toggleMenu}>Contact</a></li>
-            <li><Logindia value={false} /></li>
-          </ul>
-        )}
+  <ul className="md:hidden flex flex-col items-center space-y-4 mt-4 md:mt-0 bg-gray-300 rounded-sm py-2">
+    <li>
+      <a href="/" className="hover:underline text-lg hover:text-blue-700 font-semibold">
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="#About" className="hover:underline text-lg hover:text-blue-700 font-semibold" onClick={toggleMenu}>
+        About
+      </a>
+    </li>
+    <li>
+      <a href="#Features" className="hover:underline text-lg hover:text-blue-700 font-semibold" onClick={toggleMenu}>
+        Features
+      </a>
+    </li>
+    <li>
+      <a href="#" className="hover:underline text-lg hover:text-blue-700 font-semibold" onClick={toggleMenu}>
+        Contact
+      </a>
+    </li>
+
+    {/* New Login Dropdown */}
+    <li className="relative">
+      <button
+        onClick={toggleDropdown}
+        className="text-lg bg-blue-500 py-1 px-3 rounded-lg text-white font-semibold focus:outline-none"
+      >
+        Login
+      </button>
+      {dropdownOpen && (
+        <ul className="absolute left-0 mt-2 bg-gray-200 rounded-md shadow-lg py-2">
+          <li>
+            <Link to="/login" className="block px-4 py-2 hover:bg-blue-500 hover:text-white">
+              Admin
+            </Link>
+          </li>
+          <li>
+            <Logindia value={false} handle={toggleDropdown} />
+          </li>
+        </ul>
+      )}
+    </li>
+  </ul>
+)}
+
       </nav>
     </div>
   );

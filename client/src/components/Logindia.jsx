@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
-const Logindia = ({ value }) => {
+const Logindia = ({ value,handle}) => {
   const [isOpen, setOpen] = useState(value);
   const navigate = useNavigate();
 
@@ -11,7 +11,7 @@ const Logindia = ({ value }) => {
   const handleClose = () => setOpen(false);
 
   //for logout
-  const [check, setCheck] = useState("false");
+  const [check, setCheck] = useState(false);
   const handlecheck = () => {
     setCheck(!check);
   }
@@ -92,6 +92,7 @@ const Logindia = ({ value }) => {
           navigate("/");
           handleClose();
           handlecheck();
+          // handle();
         });
 
 
@@ -122,19 +123,14 @@ const Logindia = ({ value }) => {
 
 
 
-
-
-
-
-
   return (
     <>
       <button
-        onClick={check==true ? handleLogout : handleOpen}
-        className="block text-white px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-medium  hover:bg-blue-600 bg-blue-500 rounded text-nowrap"
+        onClick={check==true? handleLogout : handleOpen}
+        className="block text-white md:text-blue-500 px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-semibold  hover:bg-blue-600 bg-blue-500 hover:text-white  md:bg-transparent text-nowrap"
         type="button"
       >
-        {check==true ? "Logout" : "Log In"}
+        {check==true ?"user-Logout" : "user-Log In"}
       </button>
 
       {isOpen && (
