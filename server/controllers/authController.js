@@ -2,6 +2,7 @@ const userModel=require("../model/user-model");
 const bcrypt=require("bcrypt");
  const {generateToken}=require("../utils/token");
 
+
 module.exports.registeredUser=async function(req,res){
       try{
          let{name,email,password,role}=req.body;
@@ -28,4 +29,30 @@ module.exports.registeredUser=async function(req,res){
       catch(err){
          res.send(err.message);
       }
+}
+
+module.exports.loginUser=async function (req,res) {
+    let {email,password}=req.body;
+    let user=await userModel.findOne({email:email});
+    if(!user){
+       res.send("incorrect email or password");
+    }
+    else{
+       bcrypt.compare(password,user.password,function(err,result){
+          if(result){
+             let token=generateToken(user);
+             res.cookie("token",token);
+              res.send(user);
+          }
+          else{
+            res.send("you have entered wrong password or email");
+          }
+       })
+    }
+}
+
+module.exports.logoutUser=async function (req,res) {
+   res.cookie("token"," ");
+   res.status(200).json("successfull logout");
+   
 }

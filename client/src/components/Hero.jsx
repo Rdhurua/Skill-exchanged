@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import img1 from "../assets/banner1.jpg"; 
 import img2 from "../assets/banner2.jpg"; 
 import img3 from "../assets/banner3.jpg"; 
+import img4 from "../assets/banner-4.jpg"; 
+
 import {Link} from "react-dom"
 import Logindia from "./Logindia";
 const Hero = () => {
-  const images = [img1, img2, img3]; // Use the actual images
+  const images = [img4, img2, img3,img1]; // Use the actual images
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
