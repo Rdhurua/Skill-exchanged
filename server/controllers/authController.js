@@ -2,7 +2,7 @@ const userModel=require("../model/user-model");
  const adminModel=require("../model/admin-model");
 const bcrypt=require("bcrypt");
  const {generateToken}=require("../utils/token");
-
+ const cloudinary=require("../utils/cloudinary.js");
 
 module.exports.registeredUser=async function(req,res){
       try{
@@ -158,26 +158,54 @@ module.exports.loginAdmin=async function(req,res){
 }
 
 module.exports.uploadPicture=async function(req,res){
-   try {
-      const userId = req.body.userId; // Pass userId in the request body
-      const user = await userModel.findById(userId);
-  
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
- // Save image data in MongoDB
-      user.profilePicture = {
-        data: req.file.buffer,
-        contentType: req.file.mimetype,
-      };
-      await user.save();
-  
-      res.status(200).json({
-        message: 'Profile picture uploaded successfully',
-        user,
+
+    const{image,userId}=req.body;
+
+  try {
+      const result=await cloudinary.uploader.upload(image,{
+         folder:"userPic",
       });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to upload profile picture' });
+
+     // Get user ID from request body
+    const user = await userModel.findById(userId); // Find user in the database
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    // Update user's profile picture URL
+    user.profilePicture.data = result.secure_url; // Cloudinary provides the file URL in `req.file.path`
+    await user.save();
+
+    res.status(200).json({ 
+      message: "Profile picture uploaded successfully", 
+      profilePicUrl: user.profilePicture.data 
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error uploading profile picture" });
+  }
+}
+
+module.exports.getInfo=async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "User profile fetched successfully",
+      user: {
+        name: user.name,
+        email: user.email,
+        profilePic: user.profilePicture.data, // Include profile picture
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching user profile" });
+  }
 }

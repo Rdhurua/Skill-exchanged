@@ -31,8 +31,14 @@ const userSchema=mongoose.Schema({
         default: 'learner'
       },
       profilePicture: {
-        data: Buffer,
-        contentType: String,
+        data: {
+          type: String,
+          default: "https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197911.png",
+        },
+        contentType: {
+          type: String,
+          default: "image/png",
+        },
       },
 });
 

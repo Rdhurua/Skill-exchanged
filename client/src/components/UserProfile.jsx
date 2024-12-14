@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from "./Authroute/AuthContext.jsx"
 import { IoMdArrowDropdownCircle } from "react-icons/io";
@@ -15,8 +15,15 @@ function UserProfile() {
 
   const [fault, setDefault] = useState(true);
   const [visibleDiv, setVisibleDiv] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
 
+
+  const [file, setFile] = useState(null); // State to hold the selected file
+  const [uploading, setUploading] = useState(false); // State to track uploading process
+  const [message, setMessage] = useState(""); // State for success or error message
+  const [user,setUser]=useState(null);
+  const [loading, setLoading] = useState(true); // State to track loading
+  const [error, setError] = useState(""); 
+  
 
   const toggleDiv = (index) => {
     console.log(visibleDiv);
@@ -64,67 +71,80 @@ function UserProfile() {
     }
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      console.log('File selected:', file);
-      setSelectedFile(file); // Store the selected file in state
-    }
+   const handleFileChange = (e) => {
+    setFile(e.target.files[0]); // Get the selected file
+    //  console.log(data.profilePicture.data);
   };
 
-  const handleFileUpload = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (!selectedFile) {
-      alert('No file selected. Please choose a file first.');
+    if (!file) {
+      alert("Please select a file.");
       return;
     }
 
-    const formData = new FormData();
-    formData.append('profilePicture', selectedFile);
+    // Convert the selected file to a Base64 string
+    const reader = new FileReader();
+    reader.readAsDataURL(file); // Read the file
+     console.log(data._id)
+    reader.onloadend = async () => {
+      try {
+        setUploading(true);
 
-    try {
-      const response = await fetch('http://localhost:5900/users/uploadPicture', {
-        method: 'POST', // Ensure POST is correctly defined as a string
-        headers: {
-          // Remove 'Content-Type' header to let the browser set it for FormData
-          // 'Content-Type': 'multipart/form-data',
-        },
-        body: formData,
-      });
+        const response = await axios.post("http://localhost:5900/users/uploadPicture", {
+          image: reader.result, // Send the Base64 string
+          userId: data._id, // Replace this with the actual user ID
+        });
 
-      if (response.ok) {
-        const data = await response.json(); // Parse JSON response if needed
-        console.log('File uploaded successfully:', data);
-        alert('Profile picture updated successfully!');
-      } else {
-        console.error('Failed to upload file:', response.statusText);
-        alert('Failed to upload profile picture. Please try again.');
+        setUploading(false);
+        setMessage("Profile picture uploaded successfully!");
+        console.log("Response:", response.data);
+        //  setUrl(data.profilePic);
+      } catch (error) {
+        setUploading(false);
+        setMessage("Error uploading profile picture.");
+        console.error("Error:", error.response?.data || error.message);
       }
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      alert('Failed to upload profile picture. Please try again.');
+    };
+  };
+
+  const fetchUserProfile = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`http://localhost:5900/users/getUserProfile/${data._id}`);
+      setUser(response.data.user); // Set the user data
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      setError("Error fetching user profile.");
+      console.error(err.response?.data || err.message);
     }
   };
+
+  useEffect(() => {
+     fetchUserProfile();
+  }, []);
+
+
+
 
   return (
     <div className='flex justify-between w-full h-full'>
 
    { navbar?<IoMdArrowDropupCircle className='h-10 w-10' onClick={() => setNavbar(!navbar)} /> : <IoMdArrowDropdownCircle className='h-10 w-10' onClick={() => setNavbar(!navbar)} />}
       {navbar && <div className='w-1/3 lg:w-1/4 h-[94vh] mx-4 bg-white flex flex-col my-5 rounded-md'>
-        <div className='border-b-4 border-black h-1/4 flex justify-between items-center'>
-          <div className='relative w-40 h-40 group'>
-            <img src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197911.png" alt="" className='w-32 h-32 rounded-md' />
-            <div className="absolute inset-0 h-32 w-32 bg-black bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[50%]">
-          <form onSubmit={handleFileUpload}>
-
-
-
+        <div className='border-b-4 border-black h-1/4 flex justify-between items-center py-8'>
+          <div className='flex flex-wrap w-40 h-40 group'>
+            <img src={user?.profilePic||"https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197911.png"} alt="" className='w-32 h-32 rounded-md' />
+            <div className="h-32 w-32">
+          <form onSubmit={handleSubmit} className='flex items-center'>
             <label
               htmlFor="fileInput"
-              className=" bg-white text-black px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-blue-600 mt-20"
+              className=" bg-white text-black px-3 py-1 rounded-md 
+              text-sm cursor-pointer hover:bg-blue-600 "
             >
-              <FaUserEdit />
+              <FaUserEdit  className='text-lg'/>
             </label>
             <input
               id="fileInput"
@@ -132,8 +152,9 @@ function UserProfile() {
               accept="image/*"
               className="hidden"
               onChange={handleFileChange}
+              name='image'
             />
-             <button type='submit'>submit</button>
+             <button type='submit' className='bg-blue-500 py-1 px-2 rounded-md text-white '>submit</button>
           </form>
                
           </div>
@@ -169,7 +190,7 @@ function UserProfile() {
         </header>
 
         <div className='w-full flex items-center justify-center'>
-          <img src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197911.png" alt="loading" className='w-80 h-80' />
+          <img src={user?.profilePic||"https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197911.png"} alt="loading" className='w-80 h-80' />
         </div>
         <p className='text-lg font-semibold'>Go through fire and be ready for the strong comeback</p>
 
