@@ -14,15 +14,20 @@ module.exports.registeredUser=async function(req,res){
           bcrypt.genSalt(10,function(err,salt){
              bcrypt.hash(password,salt,async function(err,hash) {
                 if(err){
-                     res.send(err.message);
+                     res.status(404).json(err.message);
                 }
                 else{
                      let user=await userModel.create({
                          name,email,role,password:hash,
                      });
                      let token=generateToken(user);
-                     res.cookie("token",token);
-                     res.send(user);
+                     res.cookie("token",token,{
+                        httpOnly: true,  
+                        secure: process.env.NODE_ENV === 'production', 
+                        maxAge: 3600000, 
+                        sameSite: 'Strict'
+                    });
+                     res.status(200).json({message:"successfully registered",user});
                 }
              })
           })
@@ -36,17 +41,32 @@ module.exports.loginUser=async function (req,res) {
     let {email,password}=req.body;
     let user=await userModel.findOne({email:email});
     if(!user){
-       res.send("incorrect email or password");
+      res.status(404).json({ message: "Invalid email address. Please verify your email and try again" });
+
     }
     else{
-       bcrypt.compare(password,user.password,function(err,result){
+       bcrypt.compare(password,user.password,async function(err,result){
           if(result){
-             let token=generateToken(user);
-             res.cookie("token",token);
-              res.send(user);
+             let token= await generateToken(user);
+            res.cookie('token', token, {
+               httpOnly: true,  
+               secure: process.env.NODE_ENV === 'production', 
+               maxAge: 3600000, 
+               sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', 
+               path: '/', 
+           });
+
+           res.status(200).json({
+            message: 'Login successful',
+            user: {
+                id: user._id,
+                email: user.email,
+                name: user.name,
+            },
+        });
           }
           else{
-            res.send("you have entered wrong password or email");
+            res.status(404).json({message:"you have entered wrong password or email"});
           }
        })
     }
@@ -58,8 +78,19 @@ module.exports.logoutUser=async function (req,res) {
    
 }
 
+module.exports.userProfile=async function(req,res){
+   try {
+      const user = await userModel.findById(req.user.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json({ user });
+    } catch (error) {
+      res.status(500).json({ message: "Server error" });
+    }
+}
 
-
+//admin part
 
 module.exports.registeredAdmin=async function(req,res) {
 
@@ -78,9 +109,16 @@ module.exports.registeredAdmin=async function(req,res) {
                       let Admin=await adminModel.create({
                         username,email,phoneNumber,password:hash,
                       });
-                      let token=generateToken(Admin);
-                      res.cookie("token",token);
-                      res.send(Admin);
+                      let token= await generateToken(Admin);
+                      res.cookie("token",token,{
+                        httpOnly: true,  
+                        secure: process.env.NODE_ENV === 'production', 
+                        maxAge: 3600000, 
+                        sameSite: 'Strict'
+                    });
+                      res.status(200).json({
+                        message:"admin successfully registered once",
+                        Admin});
                    }
             })
      })
@@ -100,16 +138,46 @@ module.exports.loginAdmin=async function(req,res){
           bcrypt.compare(password,admin.password,async function(err,result){
               if(result){
                 let token=generateToken(admin);
-                res.cookie("token",token);
-                res.send(admin);
+                res.cookie("token",token,{
+                  httpOnly: true,  
+                  secure: process.env.NODE_ENV === 'production', 
+                  maxAge: 3600000, 
+                  sameSite: 'Strict'
+              });
+                res.status(200).json({message:"admin logged in successfull",admin});
               }
               else{
-                res.status(404).send("you have entered wrong password");
+                res.status(404).json({message:"you have entered wrong password"});
               }
           })
         }
     } catch(err){
-       res.send(err.message);
+       res.status(404).json(err.message);
     }
      
+}
+
+module.exports.uploadPicture=async function(req,res){
+   try {
+      const userId = req.body.userId; // Pass userId in the request body
+      const user = await userModel.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+ // Save image data in MongoDB
+      user.profilePicture = {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+      };
+      await user.save();
+  
+      res.status(200).json({
+        message: 'Profile picture uploaded successfully',
+        user,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to upload profile picture' });
+    }
 }

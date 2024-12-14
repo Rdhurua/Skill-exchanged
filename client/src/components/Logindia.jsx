@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
+import {useAuth} from "./Authroute/AuthContext.jsx"
 import Swal from "sweetalert2";
+import { FaEye } from "react-icons/fa";
+import { BsEyeSlashFill } from "react-icons/bs";
 
 
 const Logindia = ({ value,handle}) => {
   const [isOpen, setOpen] = useState(value);
   const navigate = useNavigate();
+   const [shown,setShown]=useState(false);
+  const [token,setToken]=useState("");
+
+  const { login } = useAuth();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+    const handleShown=()=>setShown(!shown);
   //for logout
   const [check, setCheck] = useState(false);
   const handlecheck = () => {
@@ -65,6 +73,29 @@ const Logindia = ({ value,handle}) => {
     }));
   };
 
+  const goToProfile=async ()=>{
+    try {
+      const response = await fetch('http://localhost:5900/users/profile', {
+        method: 'GET',
+        credentials: 'include', // Include cookies if needed for authentication
+        headers: {
+          'Content-Type': 'application/json',
+           'Authorization': `Bearer ${token}` // Optional: Include token if required in headers
+        }
+      });
+    
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+    
+      const userdata = await response.json();
+       console.log(userdata);
+       navigate("/userProfile",{state:{data:userdata.user}});
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+    
+  }
 
 
   const handleSubmit = async (e) => {
@@ -81,20 +112,22 @@ const Logindia = ({ value,handle}) => {
 
       const result = await response.json();
       // console.log('Server response:', result);
-
+  
       if (response.ok) {
-
+         console.log(response.ok);
         Swal.fire({
           title: "Wow!",
-          text: ` Welcome ${result.name},You have successfully logged in.`,
+          text: `hey${result.user.name}! ${result.message}`,
           icon: "success",
         }).then(() => {
-          navigate("/");
+           login();
+          goToProfile();
           handleClose();
           handlecheck();
           // handle();
+          setToken(localStorage.getItem('token'));
         });
-
+  console.log(token);
 
         setFormData({
           email: "",
@@ -200,16 +233,18 @@ const Logindia = ({ value,handle}) => {
                     >
                       Your password
                     </label>
+                     <div className='flex justify-between items-center'>
                     <input
-                      type="password"
+                      type={shown?"text":"password"}
                       name="password"
                       id="password"
                       placeholder="••••••••"
-                      className="mt-2 w-full p-3 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 block dark:border-gray-500 dark:placeholder-gray-400"
+                      className="mt-2 w-3/4 p-3 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 block dark:border-gray-500 dark:placeholder-gray-400"
                       value={formData.password}
                       onChange={handleChange}
                       required
-                    />
+                    /> {shown?<BsEyeSlashFill className='text-2xl mr-4' onClick={handleShown} />:< FaEye className='text-2xl mr-4' onClick={handleShown} />}
+                     </div>
                   </div>
 
                   {/* Remember Me & Forgot Password */}

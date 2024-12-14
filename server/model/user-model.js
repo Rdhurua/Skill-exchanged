@@ -29,7 +29,11 @@ const userSchema=mongoose.Schema({
         type: String,
         enum: ['provider', 'learner'],
         default: 'learner'
-      }
+      },
+      profilePicture: {
+        data: Buffer,
+        contentType: String,
+      },
 });
 
 module.exports=mongoose.model("user",userSchema);

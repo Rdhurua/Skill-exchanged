@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import Logindia from "./Logindia.jsx";
 import logo from "../assets/fg.png";
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   // Toggle the mobile menu
+  // const [value,setValue]=useContext();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
