@@ -9,7 +9,7 @@ module.exports.registeredUser=async function(req,res){
          let{name,email,password,role}=req.body;
          let user=await userModel.findOne({email:email});
          if(user){
-             res.status(401).send("you have already an account");
+             res.status(401).json({message:"you have already an account"});
          }
           bcrypt.genSalt(10,function(err,salt){
              bcrypt.hash(password,salt,async function(err,hash) {
@@ -33,7 +33,7 @@ module.exports.registeredUser=async function(req,res){
           })
       }
       catch(err){
-         res.send(err.message);
+         res.status(404).json({message:err.message});
       }
 }
 
