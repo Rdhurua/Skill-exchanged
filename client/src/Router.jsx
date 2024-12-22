@@ -13,7 +13,8 @@ import SkillsMatching from './components/SkillsMatching.jsx'
 import Dashboard from './pages/Dashbard.jsx'
 
 const Routing = () => {
-  return < Router>
+  return <AuthProvider>
+   < Router>
   <Routes>
     <Route path='/' element={<App/>} />
     <Route path='/CreateAccount' element={<CreateAccount/>} />
@@ -21,13 +22,13 @@ const Routing = () => {
     <Route path='/AdminRegister' element={<AdminCreate/>} />
     <Route path='/login' element={<Logindia value={true}/>} />
     <Route path='/session' element={<SessionExpired />} />
-    <Route path='/userProfile' element={<UserProfile/>} />
-   <Route path='/skills' element={<SkillsMatching/>} />
-   <Route path='/dashboard' element={ <Dashboard/>} />
+    <Route path='/userProfile' element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
+   <Route path='/skills' element={<ProtectedRoute> <SkillsMatching/></ProtectedRoute>} />
+   <Route path='/dashboard' element={<ProtectedRoute> <Dashboard/></ProtectedRoute>} />
    
      </Routes>
 </Router>
-  
+  </AuthProvider>
 }
 
 export default Routing
