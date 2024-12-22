@@ -73,31 +73,35 @@ const Logindia = ({ value,handle}) => {
     }));
   };
 
-  const goToProfile=async ()=>{
+  const goToProfile = async () => {
+    const storedToken = token || localStorage.getItem('token');
+    if (!storedToken) {
+      console.error('No token found. Cannot fetch user data.');
+      return;
+    }
+  
     try {
       const response = await fetch('https://skill-exchanged.onrender.com/users/profile', {
         method: 'GET',
-        credentials: 'include', // Include cookies if needed for authentication
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-           'Authorization': `Bearer ${token}` // Optional: Include token if required in headers
-        }
+          'Authorization': `Bearer ${storedToken}`,
+        },
       });
-    
+  
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-    
+  
       const userdata = await response.json();
-       console.log(userdata);
-       navigate("/userProfile",{state:{data:userdata.user}});
+      console.log('User Data:', userdata);
+      navigate("/userProfile", { state: { data: userdata.user } });
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
-    
-  }
-
-
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -109,33 +113,28 @@ const Logindia = ({ value,handle}) => {
         body: JSON.stringify(formData),
         credentials: 'include',
       });
-
+  
       const result = await response.json();
-      // console.log('Server response:', result);
+      console.log('Server response:', result);
   
       if (response.ok) {
-         console.log(response.ok);
         Swal.fire({
           title: "Wow!",
-          text: `hey${result.user.name}! ${result.message}`,
+          text: `Hey ${result.user?.name || ''}! ${result.message}`,
           icon: "success",
-        }).then(() => {
-           login();
-          goToProfile();
+        }).then(async () => {
+          login();
+          setToken(localStorage.getItem('token'));
+          await goToProfile();
           handleClose();
           handlecheck();
-          // handle();
-          setToken(localStorage.getItem('token'));
         });
-  console.log(token);
-
+  
         setFormData({
           email: "",
           password: "",
         });
-
       } else {
-
         console.log('Error:', result.message);
         Swal.fire({
           title: "Login Failed",
@@ -151,8 +150,8 @@ const Logindia = ({ value,handle}) => {
         icon: "error",
       });
     }
-
   };
+  
 
 
 
