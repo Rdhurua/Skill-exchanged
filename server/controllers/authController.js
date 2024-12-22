@@ -1,6 +1,6 @@
 const userModel=require("../model/user-model");
  const adminModel=require("../model/admin-model");
-const bcrypt=require("bcrypt");
+const bcrypt=require("bcryptjs");
  const {generateToken}=require("../utils/token");
  const cloudinary=require("../utils/cloudinary.js");
 
