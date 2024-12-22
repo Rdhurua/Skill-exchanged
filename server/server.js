@@ -9,9 +9,10 @@ const bodyParser=require("body-parser");
 const path=require('path');
 require("dotenv").config();
 
+// const allowedOrigins = [process.env.FRONTEND_URL1 || "http://localhost:5173"];
 
 app.use(cors({
-      origin:[process.env.FRONTEND_URL1, process.env.FRONTEND_URL2].filter(Boolean),
+      origin:process.env.FRONTEND_URL,
       credentials:true,
 }));
 // app.use(express.json());
