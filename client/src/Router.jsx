@@ -13,8 +13,7 @@ import SkillsMatching from './components/SkillsMatching.jsx'
 import Dashboard from './pages/Dashbard.jsx'
 
 const Routing = () => {
-  return <AuthProvider>
-   < Router>
+  return < Router>
   <Routes>
     <Route path='/' element={<App/>} />
     <Route path='/CreateAccount' element={<CreateAccount/>} />
@@ -28,7 +27,7 @@ const Routing = () => {
    
      </Routes>
 </Router>
-  </AuthProvider>
+  
 }
 
 export default Routing
