@@ -14,6 +14,12 @@ import { Link } from 'react-router-dom';
 function UserProfile() {
   const location = useLocation();
   const [data, setData] = useState(location.state?.data || {});
+
+  useEffect(() => {
+    console.log("Location State Data:", location.state?.data);
+  }, [location.state]);
+
+
   const navigate = useNavigate();
 
   const [fault, setDefault] = useState(true);

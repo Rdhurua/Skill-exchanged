@@ -84,7 +84,8 @@ const Logindia = ({ value,handle}) => {
       });
   
       const userdata = response.data; // Axios automatically parses the JSON response
-      console.log(userdata);
+      // console.log(userdata);
+      localStorage.setItem("userData", JSON.stringify(userdata.user));
   
       // Navigate to the user profile page and pass the data
       navigate("/userProfile", { state: { data: userdata.user } });
