@@ -29,7 +29,7 @@ const CreateAccountForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5900/users/register', {
+      const response = await fetch('https://skill-exchange-server.onrender.com/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
