@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2";
+import axios from 'axios'
 const CreateAccountForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ const CreateAccountForm = () => {
     }
 
     try {
-      const response = await fetch('https://skill-exchange-server.onrender.com/users/register', {
+      const response = await axios('https://skill-exchange-server.onrender.com/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

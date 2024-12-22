@@ -4,7 +4,7 @@ import {useAuth} from "./Authroute/AuthContext.jsx"
 import Swal from "sweetalert2";
 import { FaEye } from "react-icons/fa";
 import { BsEyeSlashFill } from "react-icons/bs";
-
+import axios from 'axios'
 
 const Logindia = ({ value,handle}) => {
   const [isOpen, setOpen] = useState(value);
@@ -28,7 +28,7 @@ const Logindia = ({ value,handle}) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://skill-exchange-server.onrender.com/users/logout', {
+      const response = await axios('https://skill-exchange-server.onrender.com/users/logout', {
         method: 'POST',
         credentials: 'include',
       });
@@ -75,7 +75,7 @@ const Logindia = ({ value,handle}) => {
 
   const goToProfile=async ()=>{
     try {
-      const response = await fetch('https://skill-exchange-server.onrender.com/users/profile', {
+      const response = await axios ('https://skill-exchange-server.onrender.com/users/profile', {
         method: 'GET',
         credentials: 'include', // Include cookies if needed for authentication
         headers: {
@@ -101,7 +101,7 @@ const Logindia = ({ value,handle}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://skill-exchange-server.onrender.com/users/login', {
+      const response = await axios('https://skill-exchange-server.onrender.com/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
