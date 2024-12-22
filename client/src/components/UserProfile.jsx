@@ -57,7 +57,7 @@ function UserProfile() {
 
 
     try {
-      const response = await axios.put(`https://skill-exchanged.onrender.com/users/update/${data._id}`, updates);
+      const response = await axios.put(`http://localhost:5900/users/update/${data._id}`, updates);
 
         const updatedDetails=response.data.user;
          setData((prevData)=>({
@@ -107,7 +107,7 @@ function UserProfile() {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://skill-exchanged.onrender.com/users/logout', {
+      const response = await fetch('http://localhost:5900/users/logout', {
         method: 'POST',
         credentials: 'include',
       });
@@ -158,7 +158,7 @@ function UserProfile() {
       try {
         setUploading(true);
 
-        const response = await axios.post("https://skill-exchanged.onrender.com/users/uploadPicture", {
+        const response = await axios.post("http://localhost:5900/users/uploadPicture", {
           image: reader.result, // Send the Base64 string
           userId: data._id, // Replace this with the actual user ID
         });
@@ -184,7 +184,7 @@ function UserProfile() {
   const fetchUserProfile = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://skill-exchanged.onrender.com/users/getUserProfile/${data._id}`);
+      const response = await axios.get(`http://localhost:5900/users/getUserProfile/${data._id}`);
       setUser(response.data.user); // Set the user data
        
       setLoading(false);

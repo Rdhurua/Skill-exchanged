@@ -28,7 +28,7 @@ const Logindia = ({ value,handle}) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://skill-exchanged.onrender.com/users/logout', {
+      const response = await fetch('http://localhost:5900/users/logout', {
         method: 'POST',
         credentials: 'include',
       });
@@ -75,7 +75,7 @@ const Logindia = ({ value,handle}) => {
 
   const goToProfile=async ()=>{
     try {
-      const response = await fetch('https://skill-exchanged.onrender.com/users/profile', {
+      const response = await fetch('http://localhost:5900/users/profile', {
         method: 'GET',
         credentials: 'include', // Include cookies if needed for authentication
         headers: {
@@ -101,7 +101,7 @@ const Logindia = ({ value,handle}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://skill-exchanged.onrender.com/users/login', {
+      const response = await fetch('http://localhost:5900/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
