@@ -40,6 +40,22 @@ const userSchema=mongoose.Schema({
           default: "image/png",
         },
       },
+      about:{
+           type:String,
+           default:"",
+      },
+      Skills:{
+         type:Array,
+         default:[],
+      },
+      Course:{
+        type:Array,
+        default:[],
+      },
+      Learnt:{
+         type:Array,
+         default:[],
+      }
 });
 
 module.exports=mongoose.model("user",userSchema);

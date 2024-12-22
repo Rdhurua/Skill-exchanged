@@ -1,7 +1,9 @@
 const express = require("express");
 const userModel = require("../model/user-model");
 const router = express.Router();
-const { registeredUser, loginUser, logoutUser,userProfile,uploadPicture,getInfo } = require("../controllers/authController");
+const { registeredUser, loginUser,
+     logoutUser,userProfile,
+     uploadPicture, getInfo ,updateDetails,skillMatch} = require("../controllers/authController");
 const addMiddleware=require("../middleware/isLoggin");
 const validation=require("../middleware/isValid");
 
@@ -18,5 +20,8 @@ router.get("/profile",addMiddleware,userProfile);
 
 router.post("/uploadPicture",uploadPicture);
 router.get("/getUserProfile/:userId",getInfo);
+
+router.put("/update/:userId",updateDetails)
+router.post("/skillMatch/",skillMatch)
 
 module.exports = router

@@ -2,14 +2,14 @@ import React from 'react'
 
 const Features = () => {
   return (
-    <section className="bg-white py-10 md:py-20" id='Features'>
+    <section className="bg-gray-100 py-10 md:py-20" id='Features'>
     <div className="max-w-7xl mx-auto text-center  min-h-screen">
       <h3 className="text-2xl md:text-3xl font-bold mb-8 md:mb-10">Platform Features</h3>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-4 lg:px-10">
         <div className="p-4 border rounded-lg shadow-md h-[27rem] md:h-80 w-full transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:bg-gray-600 hover:text-white">
           <h4 className="text-xl md:text-2xl font-semibold mb-2">Find Skills</h4>
           <div className="flex flex-col md:flex-row justify-around items-start h-[50vh] md:h-full">
-            <img src="https://www.wikihow.com/images/thumb/9/9b/Learn-New-Things-Step-14.jpg/v4-460px-Learn-New-Things-Step-14.jpg.webp" alt="" className="h-64 w-full md:h-[77%] md:w-1/2 md:mr-6 mb-4 md:mb-0 object-cover rounded shadow-md" />
+            <img src="https://img.freepik.com/free-photo/hands-working-digital-device-network-graphic-overlay_53876-132150.jpg" alt="" className="h-64 w-full md:h-[77%] md:w-1/2 md:mr-6 mb-4 md:mb-0 object-cover rounded shadow-md" />
             <p className="text-justify text-md md:text-lg">Explore the variety of skills and services offered by professionals in your community.Discover local expertise across different fields.Connect with specialists providing unique solutions and support.</p>
           </div>
         </div>

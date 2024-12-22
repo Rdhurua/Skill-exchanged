@@ -9,6 +9,8 @@ import UserProfile from './components/UserProfile.jsx'
 import { AuthProvider } from './components/Authroute/AuthContext.jsx'
 import ProtectedRoute from './components/Authroute/ProtectedRoute.jsx'
 import SessionExpired from './components/SessionExpired.jsx'
+import SkillsMatching from './components/SkillsMatching.jsx'
+import Dashboard from './pages/Dashbard.jsx'
 
 const Routing = () => {
   return <AuthProvider>
@@ -20,10 +22,10 @@ const Routing = () => {
     <Route path='/AdminRegister' element={<AdminCreate/>} />
     <Route path='/login' element={<Logindia value={true}/>} />
     <Route path='/session' element={<SessionExpired />} />
-    <Route path='/userProfile' 
-    element={<ProtectedRoute>
-      <UserProfile/>
-      </ProtectedRoute>} />
+    <Route path='/userProfile' element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
+   <Route path='/skills' element={<ProtectedRoute> <SkillsMatching/></ProtectedRoute>} />
+   <Route path='/dashboard' element={<ProtectedRoute> <Dashboard/></ProtectedRoute>} />
+   
      </Routes>
 </Router>
   </AuthProvider>
