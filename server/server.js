@@ -11,7 +11,7 @@ require("dotenv").config();
 
 
 app.use(cors({
-      origin:"http://localhost:5173",
+      origin:[process.env.FRONTEND_URL1, process.env.FRONTEND_URL2].filter(Boolean),
       credentials:true,
 }));
 // app.use(express.json());
