@@ -73,86 +73,76 @@ const Logindia = ({ value,handle}) => {
     }));
   };
 
-  const goToProfile=async ()=>{
+  const goToProfile = async () => {
     try {
-      const response = await fetch('https://skill-exchange-server.onrender.com/users/profile', {
-        method: 'GET',
-        credentials: 'include', // Include cookies if needed for authentication
+      const response = await axios.get('https://skill-exchange-server.onrender.com/users/profile', {
         headers: {
           'Content-Type': 'application/json',
-           'Authorization': `Bearer ${token}` // Optional: Include token if required in headers
-        }
+          'Authorization': `Bearer ${token}`, // Include token if required in headers
+        },
+        withCredentials: true, // Include cookies for authentication if needed
       });
-    
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-    
-      const userdata = await response.json();
-       console.log(userdata);
-       navigate("/userProfile",{state:{data:userdata.user}});
+  
+      const userdata = response.data; // Axios automatically parses the JSON response
+      console.log(userdata);
+  
+      // Navigate to the user profile page and pass the data
+      navigate("/userProfile", { state: { data: userdata.user } });
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error('Error fetching user data:', error.response?.data || error.message);
     }
-    
-  }
+  };
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('https://skill-exchange-server.onrender.com/users/login', {
-        method: 'POST',
+  
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.post(
+      'https://skill-exchange-server.onrender.com/users/login',
+      formData, // This automatically converts to JSON
+      {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
-        credentials: 'include',
-      });
-
-      const result = await response.json();
-      // console.log('Server response:', result);
-  
-      if (response.ok) {
-         console.log(response.ok);
-        Swal.fire({
-          title: "Wow!",
-          text: `hey${result.user.name}! ${result.message}`,
-          icon: "success",
-        }).then(() => {
-           login();
-          goToProfile();
-          handleClose();
-          handlecheck();
-          // handle();
-          setToken(localStorage.getItem('token'));
-        });
-  console.log(token);
-
-        setFormData({
-          email: "",
-          password: "",
-        });
-
-      } else {
-
-        console.log('Error:', result.message);
-        Swal.fire({
-          title: "Login Failed",
-          text: result.message || "An error occurred during login.",
-          icon: "error",
-        });
+        withCredentials: true, // Enables sending cookies with the request
       }
-    } catch (error) {
-      console.error('Error during submission:', error);
+    );
+
+    const result = response.data;
+    // console.log('Server response:', result);
+
+    if (response.status === 200) {
+      console.log(response.status);
       Swal.fire({
-        title: "Network Error",
-        text: "There was a problem connecting to the server.",
-        icon: "error",
+        title: "Wow!",
+        text: `Hey ${result.user.name}! ${result.message}`,
+        icon: "success",
+      }).then(() => {
+        login();
+        goToProfile();
+        handleClose();
+        handlecheck();
+        setToken(localStorage.getItem('token'));
+      });
+      console.log(token);
+
+      setFormData({
+        email: "",
+        password: "",
       });
     }
+  } catch (error) {
+    console.error('Error during submission:', error);
+    Swal.fire({
+      title: "Login Failed",
+      text: error.response?.data?.message || "An error occurred during login.",
+      icon: "error",
+    });
+  }
+};
 
-  };
 
 
 

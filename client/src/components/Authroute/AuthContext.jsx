@@ -14,28 +14,28 @@ export const AuthProvider = ({ children }) => {
 
   const validateSession = async () => {
     try {
-      const response = await fetch("https://skill-exchange-server.onrender.com/users/auth/validate", {
-        method: "GET",
-        credentials: "include", // Include cookies for authentication
+      const response = await axios.get("https://skill-exchange-server.onrender.com/users/auth/validate", {
+        withCredentials: true, // Include cookies for authentication
       });
-
-      if (response.ok) {
-         
+  
+      // Check the response status
+      if (response.status === 200) {
         console.log("Session is valid.");
         setIsAuthenticated(true);
-      } else if (response.status === 401) {
+      }
+    } catch (error) {
+      // Handle session invalidation or other errors
+      if (error.response?.status === 401) {
         console.warn("Session invalid or expired.");
         setIsAuthenticated(false);
       } else {
-        console.error("Unexpected response during session validation:", response);
+        console.error("Error during session validation:", error.response || error.message);
       }
-    } catch (error) {
-      console.error("Error during session validation:", error);
     } finally {
       setIsInitialized(true); // Mark initialization complete
     }
   };
-
+  
   useEffect(() => {
     if (hasAuthToken()) {
       // Only validate the session if the auth token exists
