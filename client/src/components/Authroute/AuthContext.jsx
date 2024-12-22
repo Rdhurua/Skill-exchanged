@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const validateSession = async () => {
     try {
-      const response = await fetch("http://localhost:5900/users/auth/validate", {
+      const response = await fetch("https://skill-exchanged.onrender.com/users/auth/validate", {
         method: "GET",
         credentials: "include", // Include cookies for authentication
       });
