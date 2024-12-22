@@ -1,7 +1,7 @@
 const jwt=require("jsonwebtoken");
 module.exports=async function(req,res){
-    const token = req.cookies.token; // Extract the token from the HttpOnly cookie
-
+    const token = await req.cookies.token; // Extract the token from the HttpOnly cookie
+    console.log(token);
   if (!token) {
     return res.status(401).json({ message: "Unauthorized: No token provided" });
   }
