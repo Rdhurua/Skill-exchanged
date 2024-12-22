@@ -120,7 +120,7 @@ const Logindia = ({ value,handle}) => {
           text: `hey${result.user.name}! ${result.message}`,
           icon: "success",
         }).then(() => {
-           login();
+          //  login();
           goToProfile();
           handleClose();
           handlecheck();
