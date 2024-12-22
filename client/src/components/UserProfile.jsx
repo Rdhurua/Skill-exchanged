@@ -197,7 +197,7 @@ function UserProfile() {
 
   useEffect(() => {
      fetchUserProfile();
-  }, []);
+  },[]);
 
 
 

@@ -6,12 +6,6 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false); // Track initialization state
 
-  const hasAuthToken = () => {
-    // Check if the `authToken` cookie exists
-    const cookies = document.cookie.split("; ");
-    return cookies.some((cookie) => cookie.startsWith("authToken="));
-  };
-
   const validateSession = async () => {
     try {
       const response = await fetch("https://skill-exchanged.onrender.com/users/auth/validate", {
@@ -36,13 +30,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (hasAuthToken()) {
-      // Only validate the session if the auth token exists
-      validateSession();
-    } else {
-      console.log("No auth token found. Skipping validation.");
-      setIsInitialized(true); // Directly mark initialization as complete
-    }
+    // Validate the session immediately on mount
+    validateSession();
 
     // Recheck session validity every minute if the user is authenticated
     const interval = setInterval(() => {
