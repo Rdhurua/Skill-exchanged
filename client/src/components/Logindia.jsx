@@ -133,10 +133,10 @@ const handleSubmit = async (e) => {
         icon: "success",
       }).then(() => {
         login();
+        setToken(getCookie('token'));
         goToProfile();
         handleClose();
         handlecheck();
-        setToken(getCookie('token'));
       });
       console.log(token);
 
