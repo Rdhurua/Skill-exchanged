@@ -28,7 +28,7 @@ const Logindia = ({ value,handle}) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://skill-exchanged.onrender.com/users/logout', {
+      const response = await fetch('https://skill-exchange-server.onrender.com/users/logout', {
         method: 'POST',
         credentials: 'include',
       });
@@ -75,7 +75,7 @@ const Logindia = ({ value,handle}) => {
 
   const goToProfile = async () => {
     try {
-      const response = await axios.get('https://skill-exchanged.onrender.com/users/profile', {
+      const response = await axios.get('https://skill-exchange-server.onrender.com/users/profile', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`, 
@@ -101,7 +101,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const response = await axios.post(
-      'https://skill-exchanged.onrender.com/users/login',
+      'https://skill-exchange-server.onrender.com/users/login',
       formData, // This automatically converts to JSON
       {
         headers: {

@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const validateSession = async () => {
     try {
-      const response = await axios.get("https://skill-exchanged.onrender.com/users/auth/validate", {
+      const response = await axios.get("https://skill-exchange-server.onrender.com/users/auth/validate", {
         withCredentials: true, // Include cookies for authentication
       });
   

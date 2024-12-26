@@ -34,7 +34,7 @@ const SkillsMatching = ({userId}) => {
     }
   else { 
     try {
-      const response = await axios.post("https://skill-exchanged.onrender.com/users/skillMatch", {
+      const response = await axios.post("https://skill-exchange-server.onrender.com/users/skillMatch", {
         Skills: selectedSkills, // Pass selected skills
         userId:userId,
       });

@@ -30,7 +30,7 @@ const CreateAccountForm = () => {
     }
 
     try {
-      const response = await axios('https://skill-exchanged.onrender.com/users/register', {
+      const response = await axios('https://skill-exchange-server.onrender.com/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
