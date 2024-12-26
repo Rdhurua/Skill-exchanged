@@ -98,7 +98,7 @@ const Logindia = ({ value,handle}) => {
       // localStorage.setItem("userData", JSON.stringify(userdata.user));
   
       // Navigate to the user profile page and pass the data
-      navigate(`/userProfile/${userdata.user._id}`);
+      navigate(`/userProfile/${userdata._id}`);
     } catch (error) {
       console.error('Error fetching user data:', error.response?.data || error.message);
     }
