@@ -38,40 +38,45 @@ module.exports.registeredUser=async function(req,res){
       }
 }
 
-module.exports.loginUser=async function (req,res) {
-    let {email,password}=req.body;
-    let user=await userModel.findOne({email:email});
-    if(!user){
-      res.status(404).json({ message: "Invalid email address. Please verify your email and try again" });
+module.exports.loginUser = async function (req, res) {
+  const { email, password } = req.body;
+  try {
+      const user = await userModel.findOne({ email });
+      if (!user) {
+          return res.status(404).json({ message: "Invalid email address. Please verify your email and try again." });
+      }
 
-    }
-    else{
-       bcrypt.compare(password,user.password,async function(err,result){
-          if(result){
-             let token= await generateToken(user);
-            res.cookie('token', token, {
-               httpOnly: true,  
-               secure: process.env.NODE_ENV === 'production', 
-               maxAge: 3600000, 
-               sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax', 
-               path: '/', 
-           });
+      bcrypt.compare(password, user.password, async function (err, result) {
+          if (result) {
+              const token = await generateToken(user);
 
-           res.status(200).json({
-            message: 'Login successful',
-            user: {
-                id: user._id,
-                email: user.email,
-                name: user.name,
-            },
-        });
+              // Set cookie with appropriate options
+              res.cookie('token', token, {
+                  httpOnly: true,
+                  secure: process.env.NODE_ENV === 'production', // Secure for production
+                  maxAge: 3600000, // 1 hour
+                  sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Cross-origin for production
+                  path: '/', // Available site-wide
+              });
+
+              res.status(200).json({
+                  message: 'Login successful',
+                  user: {
+                      id: user._id,
+                      email: user.email,
+                      name: user.name,
+                  },
+              });
+          } else {
+              res.status(401).json({ message: "You have entered the wrong password or email." });
           }
-          else{
-            res.status(404).json({message:"you have entered wrong password or email"});
-          }
-       })
-    }
-}
+      });
+  } catch (error) {
+      console.error('Login error:', error);
+      res.status(500).json({ message: "Internal server error." });
+  }
+};
+
 
 module.exports.logoutUser=async function (req,res) {
    res.cookie("token"," ");
