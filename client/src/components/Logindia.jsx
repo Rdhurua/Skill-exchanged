@@ -28,7 +28,7 @@ const Logindia = ({ value,handle}) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://skill-exchange-server.onrender.com/users/logout', {
+      const response = await fetch('https://skill-exchanged.onrender.com/users/logout', {
         method: 'POST',
         credentials: 'include',
       });
@@ -75,20 +75,20 @@ const Logindia = ({ value,handle}) => {
 
   const goToProfile = async () => {
     try {
-      const response = await axios.get('https://skill-exchange-server.onrender.com/users/profile', {
+      const response = await axios.get('https://skill-exchanged.onrender.com/users/profile', {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Include token if required in headers
+          'Authorization': `Bearer ${token}`, 
         },
         withCredentials: true, // Include cookies for authentication if needed
       });
   
       const userdata = response.data; // Axios automatically parses the JSON response
-      // console.log(userdata);
-      localStorage.setItem("userData", JSON.stringify(userdata.user));
+      console.log(userdata);
+      // localStorage.setItem("userData", JSON.stringify(userdata.user));
   
       // Navigate to the user profile page and pass the data
-      navigate("/userProfile", { state: { data: userdata.user } });
+      navigate(`/userProfile/${userdata.user._id}`);
     } catch (error) {
       console.error('Error fetching user data:', error.response?.data || error.message);
     }
@@ -101,7 +101,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const response = await axios.post(
-      'https://skill-exchange-server.onrender.com/users/login',
+      'https://skill-exchanged.onrender.com/users/login',
       formData, // This automatically converts to JSON
       {
         headers: {
@@ -112,7 +112,8 @@ const handleSubmit = async (e) => {
     );
 
     const result = response.data;
-    // console.log('Server response:', result);
+    console.log('Server response:', result.user.id);
+    
 
     if (response.status === 200) {
       console.log(response.status);

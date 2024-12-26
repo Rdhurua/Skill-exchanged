@@ -1,20 +1,18 @@
 import React from 'react'
 import { useState } from 'react';
-import { useNavigate,useLocation } from "react-router-dom"; 
+import { useNavigate,useLocation,useParams } from "react-router-dom"; 
 import SkillsMatching from '../components/SkillsMatching'
 
 const Dashbard = () => {
-
- const location = useLocation();
-  const [data, setData] = useState(location.state?.data || {});
+ const {userId}=useParams();
    const navigate = useNavigate(); 
   const handleSendRequest1 = () => {
     
-    navigate(`/userProfile`,{state:{data:data}}); 
+    navigate(`/userProfile/${userId}`); 
   };
   const handleSendRequest2 = () => {
     // Navigate to UserProfile or Home page
-    navigate(`/`,{state:{data:data}}); // Pass userId or any data you need
+    navigate(`/`); // Pass userId or any data you need
   };
 
   return (
@@ -28,7 +26,7 @@ const Dashbard = () => {
       
       {/* Other dashboard sections */}
       <div className="mt-8">
-        <SkillsMatching />
+        <SkillsMatching userId={userId} />
       </div>
     </div>
   )

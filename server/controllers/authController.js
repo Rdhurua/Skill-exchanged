@@ -1,3 +1,4 @@
+const mongoose=require('mongoose')
 const userModel=require("../model/user-model");
  const adminModel=require("../model/admin-model");
 const bcrypt=require("bcryptjs");
@@ -143,36 +144,50 @@ try {
 }
 }
 
-module.exports.updateDetails=async(req,res)=>{
-  let userId=req.params.userId;
-  let updates=req.body;
+module.exports.updateDetails = async (req, res) => {
+  const userId = req.params.userId;
+  const updates = req.body;
 
-  try{
-    if (!Object.keys(updates).length) {
-      return res.status(400).json({ message: 'No updates provided' });
-    }
-    const user = await userModel.findByIdAndUpdate(userId, updates, {
-      new: true, // Return the updated document
-      runValidators: true, // Ensure validations are applied
-    });
+  try {
+      // Check for valid ObjectId
+      if (!mongoose.isValidObjectId(userId)) {
+          return res.status(400).json({ message: 'Invalid userId' });
+      }
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+      // Ensure updates are provided
+      if (!Object.keys(updates).length) {
+          return res.status(400).json({ message: 'No updates provided' });
+      }
 
-    res.status(200).json({
-      message: 'User updated successfully',
-      user,
-    });
+      // Update user details
+      const user = await userModel.findByIdAndUpdate(userId, updates, {
+          new: true, // Return the updated document
+          runValidators: true, // Ensure validations are applied
+      });
+
+      // Handle case where user is not found
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      res.status(200).json({
+          message: 'User updated successfully',
+          user,
+      });
+  } catch (error) {
+      console.error('Error updating user:', error);
+
+      // Handle specific Mongoose casting error
+      if (error.kind === 'ObjectId') {
+          return res.status(400).json({ message: 'Invalid userId format', error: error.message });
+      }
+
+      res.status(500).json({
+          message: 'Error updating user',
+          error: error.message,
+      });
   }
-  catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: 'Error updating user',
-      error: error.message,
-    });
-  }
-}
+};
 
 
 

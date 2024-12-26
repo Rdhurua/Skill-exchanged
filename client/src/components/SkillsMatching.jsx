@@ -3,9 +3,9 @@ import axios from 'axios';
 import { useNavigate,useLocation } from "react-router-dom"; 
 import { GrPowerReset } from "react-icons/gr";
 
-const SkillsMatching = () => {
+const SkillsMatching = ({userId}) => {
   const location = useLocation();
-  const [data, setData] = useState(location.state?.data || {});
+  // const [data, setData] = useState({});
 
 
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -34,9 +34,9 @@ const SkillsMatching = () => {
     }
   else { 
     try {
-      const response = await axios.post("https://skill-exchange-server.onrender.com/users/skillMatch", {
+      const response = await axios.post("https://skill-exchanged.onrender.com/users/skillMatch", {
         Skills: selectedSkills, // Pass selected skills
-        userId:data._id,
+        userId:userId,
       });
   
     

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useId } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from "./Authroute/AuthContext.jsx"
 import { IoMdArrowDropdownCircle } from "react-icons/io";
@@ -9,15 +9,51 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import goToSection from './utils/GotoFunction.jsx'
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 
 function UserProfile() {
-  const location = useLocation();
-  const [data, setData] = useState(location.state?.data || {});
+  const {userId}=useParams();
+  const [data,setData] = useState({});
+
+  // useEffect(() => {
+  //   console.log("Location State Data:", location.state?.data);
+  // }, [location.state]);
+
+
+
+
+
+
+  const goToProfile = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`https://skill-exchanged.onrender.com/users/profile`,{
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Authorization': `Bearer ${token}`, 
+        },
+        withCredentials: true, // Include cookies for authentication if needed
+      });
+      const userdata=response.data.user;
+      //  console.log(userdata);
+      setData(userdata);
+      //  console.log(data);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      setError("Error fetching user profile.");
+      console.error(err.response?.data || err.message);
+    }
+  };
 
   useEffect(() => {
-    console.log("Location State Data:", location.state?.data);
-  }, [location.state]);
+    
+      
+    goToProfile();
+  }, []);
+
+
+
 
 
   const navigate = useNavigate();
@@ -33,8 +69,6 @@ function UserProfile() {
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(""); 
 
-
-  const [about, setAbout] = useState(data.about || ""); // Initial value
   const [isEditing, setIsEditing] = useState(false);
 
 
@@ -56,16 +90,28 @@ function UserProfile() {
     e.preventDefault();
     const updates={};
 
-    if (newAbout && newAbout !== data.About) updates.about = newAbout;
-    if (newCourse && newCourse !== data.Course) updates.Course = newCourse;
-    if (newSkills && newSkills.length !== data.Skills.length) updates.Skills = newSkills;
-    if (newLearnt && newLearnt.length !== data.Learnt.length) updates.Learnt = newLearnt;
+    if (newAbout && newAbout !== data.about) {
+      updates.about = newAbout;
+    }
+    
+    if (newCourse && newCourse !== data.Course) {
+      updates.Course = newCourse;
+    }
+    
+    if (newSkills && (newSkills.length !== (data.Skills?.length || 0))) {
+      updates.Skills = newSkills;
+    }
+    
+    if (newLearnt && (newLearnt.length !== (data.Learnt?.length || 0))) {
+      updates.Learnt = newLearnt;
+    }
+    
 
 
     try {
-      const response = await axios.put(`https://skill-exchange-server.onrender.com/users/update/${data._id}`, updates);
+      const response = await axios.put(`https://skill-exchanged.onrender.com/users/update/${userId}`, updates);
 
-        const updatedDetails=response.data.user;
+        const updatedDetails=response.user;
          setData((prevData)=>({
            ...prevData,...updatedDetails
          }))
@@ -76,9 +122,6 @@ function UserProfile() {
       console.error("Error updating profile:", error.response?.data || error.message);
       alert("Error updating profile!");
     }
-
-
-
 
   };
 
@@ -113,7 +156,7 @@ function UserProfile() {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://skill-exchange-server.onrender.com/users/logout', {
+      const response = await fetch('https://skill-exchanged.onrender.com/users/logout', {
         method: 'POST',
         credentials: 'include',
       });
@@ -159,12 +202,12 @@ function UserProfile() {
     // Convert the selected file to a Base64 string
     const reader = new FileReader();
     reader.readAsDataURL(file); // Read the file
-     console.log(data._id)
+    //  console.log(data._id)
     reader.onloadend = async () => {
       try {
         setUploading(true);
 
-        const response = await axios.post("https://skill-exchange-server.onrender.com/users/uploadPicture", {
+        const response = await axios.post("https://skill-exchanged.onrender.com/users/uploadPicture", {
           image: reader.result, // Send the Base64 string
           userId: data._id, // Replace this with the actual user ID
         });
@@ -190,7 +233,7 @@ function UserProfile() {
   const fetchUserProfile = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://skill-exchange-server.onrender.com/users/getUserProfile/${data._id}`);
+      const response = await axios.get(`https://skill-exchanged.onrender.com/users/getUserProfile/${userId}`);
       setUser(response.data.user); // Set the user data
        
       setLoading(false);
@@ -206,13 +249,13 @@ function UserProfile() {
   },[]);
 
 
-
-
   
 
   return (
 
+<>
 
+       
     <div className='flex flex-col md:flex-row md:justify-between w-full h-full bg-gray-100'>
         <ToastContainer/>
         {/* left controller */}
@@ -258,7 +301,7 @@ function UserProfile() {
 
   <div  className='flex justify-between mt-4 py-2'>
 
-    <Link to={"/dashboard"} state={{data}}><button className='bg-green-500 hover:bg-green-600 mx-2 text-white text-md font-semibold rounded-md px-3 py-2'>Dashboard</button></Link>
+    <Link to={`/dashboard/${userId}`} state={{data}}><button className='bg-green-500 hover:bg-green-600 mx-2 text-white text-md font-semibold rounded-md px-3 py-2'>Dashboard</button></Link>
      
       <button
         onClick={handleLogout}
@@ -464,7 +507,7 @@ function UserProfile() {
         <section className="mb-6">
       {data.Course && data.Course.length > 0 ? (
         <ul className="flex flex-wrap gap-3">
-          {data.Course.map((course, index) => (
+          {(data.Course).map((course, index) => (
             <li
               key={index}
               className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg shadow-sm"
@@ -621,6 +664,7 @@ function UserProfile() {
 
      
     </div>
+</>
   );
 }
 
