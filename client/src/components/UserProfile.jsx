@@ -15,6 +15,13 @@ function UserProfile() {
   const {userId}=useParams();
   const [data,setData] = useState({});
 
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+};
+  const [token,setToken]=useState(getCookie("token"));
+
   // useEffect(() => {
   //   console.log("Location State Data:", location.state?.data);
   // }, [location.state]);
@@ -30,7 +37,7 @@ function UserProfile() {
       const response = await axios.get(`https://skill-exchange-server.onrender.com/users/profile`,{
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${token}`, 
+          'Authorization': `Bearer ${token}`, 
         },
         withCredentials: true, // Include cookies for authentication if needed
       });
@@ -47,8 +54,6 @@ function UserProfile() {
   };
 
   useEffect(() => {
-    
-      
     goToProfile();
   }, []);
 
