@@ -83,12 +83,12 @@ const Logindia = ({ value,handle}) => {
         withCredentials: true, // Include cookies for authentication if needed
       });
   
-      const userdata = response.data; // Axios automatically parses the JSON response
+      const userdata = response.data.user; // Axios automatically parses the JSON response
       console.log(userdata);
       // localStorage.setItem("userData", JSON.stringify(userdata.user));
   
       // Navigate to the user profile page and pass the data
-      navigate(`/userProfile/${userdata.user._id}`);
+      navigate(`/userProfile/${userdata.id}`);
     } catch (error) {
       console.error('Error fetching user data:', error.response?.data || error.message);
     }
