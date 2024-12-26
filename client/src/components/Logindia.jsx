@@ -24,6 +24,16 @@ const Logindia = ({ value,handle}) => {
     setCheck(!check);
   }
 
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+};
+
+
+
+
+
   const handleLogout = async (e) => {
     e.preventDefault();
 
@@ -126,7 +136,7 @@ const handleSubmit = async (e) => {
         goToProfile();
         handleClose();
         handlecheck();
-        setToken(localStorage.getItem('token'));
+        setToken(getCookie('token'));
       });
       console.log(token);
 
