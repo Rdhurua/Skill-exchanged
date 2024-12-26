@@ -85,6 +85,8 @@ function UserProfile() {
     setNewAbout(data.about); // Set the current about text
   };
 
+
+
   const handleUpdates = async(e) => {
     setIsEditing(false); 
     e.preventDefault();
@@ -562,7 +564,6 @@ function UserProfile() {
     </button>
   )}
 </div>
-
       </div>
 
 
