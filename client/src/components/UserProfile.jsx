@@ -54,7 +54,12 @@ function UserProfile() {
   };
 
   useEffect(() => {
-    goToProfile();
+    const interval = setInterval(() => {
+      goToProfile();
+    }, 1000); // Runs every 1000ms (1 second)
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
 
@@ -97,21 +102,10 @@ function UserProfile() {
     e.preventDefault();
     const updates={};
 
-    if (newAbout && newAbout !== data.about) {
-      updates.about = newAbout;
-    }
-    
-    if (newCourse && newCourse !== data.Course) {
-      updates.Course = newCourse;
-    }
-    
-    if (newSkills && (newSkills.length !== (data.Skills?.length || 0))) {
-      updates.Skills = newSkills;
-    }
-    
-    if (newLearnt && (newLearnt.length !== (data.Learnt?.length || 0))) {
-      updates.Learnt = newLearnt;
-    }
+    if (newAbout && newAbout !== data.about) updates.about = newAbout;
+    if (newCourse && newCourse !== data.Course) updates.Course = newCourse;
+    if (newSkills && newSkills.length !== data.Skills.length) updates.Skills = newSkills;
+    if (newLearnt && newLearnt.length !== data.Learnt.length) updates.Learnt = newLearnt;
     
 
 
@@ -198,6 +192,7 @@ function UserProfile() {
     //  console.log(data.profilePicture.data);
   };
 
+  //uploading picture
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -264,6 +259,7 @@ function UserProfile() {
 
        
     <div className='flex flex-col md:flex-row md:justify-between w-full h-full bg-gray-100'>
+     {/* {goToProfile()} */}
         <ToastContainer/>
         {/* left controller */}
     
@@ -308,7 +304,7 @@ function UserProfile() {
 
   <div  className='flex justify-between mt-4 py-2'>
 
-    <Link to={`/dashboard/${userId}`} state={{data}}><button className='bg-green-500 hover:bg-green-600 mx-2 text-white text-md font-semibold rounded-md px-3 py-2'>Dashboard</button></Link>
+    <Link to={`/dashboard/${userId}`} ><button className='bg-green-500 hover:bg-green-600 mx-2 text-white text-md font-semibold rounded-md px-3 py-2'>Dashboard</button></Link>
      
       <button
         onClick={handleLogout}
