@@ -10,7 +10,7 @@ const Features=[
   },
   {
     title: "Offer Skills",
-    img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLRl2pqet5AFKvaO79YHO-eQ7dDCyQ8IVAyt-qOaFUFy40Un-66dIRHbu40TypFW_Vy06XxJtzdTkAWNNmUVPOP4qw8uzbxpV7_YozSB-Mpgn9uWuqjBOq34p_7D85wVuCpJSo5578Xzi6beJ7ew4xk_Zep07ptsNBi_mMaQlNeBNPwVuQ7WITsG5hjWU/s16000-rw/school-4279290_1280.jpg",
+    img: "https://content.jdmagicbox.com/comp/def_content/skill-development-consultants/895b8028d3-skill-development-consultants-2-b8q88.jpg",
     desc: "Share your knowledge and engage with learners in your area. Offer your skills to those seeking to learn and grow locally. Build connections by teaching and inspiring others nearby.",
   },
   {
@@ -28,14 +28,14 @@ const Features=[
 
 
   return (
-    <section className="bg-gray-100 py-10 md:py-20" id='Features'>
+    <section className="py-10 md:py-20" id='Features'>
     <div className="max-w-7xl mx-auto text-center min-h-screen px-4 sm:px-6 lg:px-8">
-  <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10">Platform Features</h3>
+  <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10">We are here for</h3>
   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
     {Features.map((feature, index) => (
       <div
         key={index}
-        className="p-4 border rounded-lg shadow-md h-auto w-full transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:bg-gray-600 hover:text-white"
+        className="p-4 border rounded-lg shadow-sm shadow-black hover:shadow-black h-auto w-full transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:bg-transparent"
       >
         <h4 className="text-xl sm:text-2xl font-semibold mb-2">{feature.title}</h4>
         <div className="flex flex-col sm:flex-row justify-around items-start h-auto sm:h-full">
@@ -44,7 +44,7 @@ const Features=[
             alt={feature.title}
             className="h-64 w-full sm:h-[75%] sm:w-1/2 sm:mr-4 mb-4 sm:mb-0 object-cover rounded shadow-md"
           />
-          <p className="text-justify text-sm sm:text-md md:text-lg">
+          <p className="text-justify text-md md:text-lg">
             {feature.desc}
           </p>
         </div>

@@ -1,5 +1,5 @@
-const mongoose=require("mongoose");
-const validator =require('validator');
+import  mongoose from "mongoose";
+import validator from 'validator';
 
 const userSchema=mongoose.Schema({
     name: {
@@ -57,5 +57,6 @@ const userSchema=mongoose.Schema({
          default:[],
       }
 });
+const user=mongoose.model("user",userSchema);
 
-module.exports=mongoose.model("user",userSchema);
+export default user;

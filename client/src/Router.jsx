@@ -6,14 +6,16 @@ import Logindia from './components/Logindia.jsx'
 import AdminLogin from './components/AdminLogin.jsx'
 import AdminCreate from './components/AdminCreate.jsx'
 import UserProfile from './components/UserProfile.jsx'
-import { AuthProvider } from './components/Authroute/AuthContext.jsx'
-import ProtectedRoute from './components/Authroute/ProtectedRoute.jsx'
+import { AuthProvider}  from './Authroute/AuthContext.jsx'
+// import ProtectedRoute from './Authroute/ProtectedRoute.jsx'
+import {SocketContextProvider} from "./Authroute/SocketContext.jsx"
 import SessionExpired from './components/SessionExpired.jsx'
 import SkillsMatching from './components/SkillsMatching.jsx'
 import Dashboard from './pages/Dashbard.jsx'
-
+import MessageContainer from "./components/MessageContainer.jsx"
 const Routing = () => {
   return <AuthProvider>
+    <SocketContextProvider>
    < Router>
   <Routes>
     <Route path='/' element={<App/>} />
@@ -22,12 +24,13 @@ const Routing = () => {
     <Route path='/AdminRegister' element={<AdminCreate/>} />
     <Route path='/login' element={<Logindia value={true}/>} />
     <Route path='/session' element={<SessionExpired />} />
-    <Route path='/userProfile/:userId' element={<ProtectedRoute><UserProfile/></ProtectedRoute>} />
-   <Route path='/skills' element={<ProtectedRoute> <SkillsMatching/></ProtectedRoute>} />
-   <Route path='/dashboard/:userId' element={<ProtectedRoute> <Dashboard/></ProtectedRoute>} />
-   
-     </Routes>
+    <Route path='/userProfile/:userId' element={<UserProfile/>} />
+   <Route path='/skills' element={ <SkillsMatching/>} />
+   <Route path='/dashboard/:userId' element={ <Dashboard/>} />
+   <Route path='/conversation/:participant1/:participant2' element={ <MessageContainer/>} />
+   </Routes>
 </Router>
+</SocketContextProvider>
   </AuthProvider>
 }
 

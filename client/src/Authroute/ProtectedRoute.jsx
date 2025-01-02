@@ -1,12 +1,10 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuthContext } from "./AuthContext";
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  if (!isAuthenticated) {
-  
-    // alert("your session is expired , you have to login again");
+  const { authUser } = useAuthContext();
+  if (!authUser) {
    
     return <Navigate to="/session" replace />;
   }

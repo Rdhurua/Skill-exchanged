@@ -17,7 +17,7 @@ const Header = () => {
     setDropdownOpen(!dropdownOpen);
   };
   return (
-    <div className="bg-gray-100 text-blue-600 p-4 sticky top-0 z-30 shadow-md shadow-black">
+    <div className="bg-gradient-to-r from-rose-100 to-teal-100 text-black p-4 sticky top-0 z-30 shadow-md shadow-black">
       <nav className="flex flex-col md:flex-row md:justify-between md:items-center max-w-7xl mx-auto">
 
         {/* Logo and Title */}
@@ -42,22 +42,23 @@ const Header = () => {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex md:space-x-4 md:mr-14 lg:space-x-6 items-center mt-4 md:mt-0">
-          <li><a href="/" className="hover:underline text-lg hover:text-blue-700 font-semibold">Home</a></li>
-          <li><a href="#About" className="hover:underline text-lg hover:text-blue-700 font-semibold">About</a></li>
-          <li><a href="#Features" className="hover:underline text-lg hover:text-blue-700 font-semibold">Features</a></li>
-          <li><a href="#" className="hover:underline text-lg hover:text-blue-700 font-semibold">Contact</a></li>
+          <li><a href="/" className="hover:underline text-lg hover:text-black font-semibold">Home</a></li>
+          <li><a href="#About" className="hover:underline text-lg hover:text-black font-semibold">About</a></li>
+          <li><a href="#Features" className="hover:underline text-lg hover:text-black font-semibold">Features</a></li>
+          <li><a href="#" className="hover:underline text-lg hover:text-black font-semibold">Contact</a></li>
           <li className="relative">
         <button
           onClick={toggleDropdown}
-          className=" text-lg bg-blue-500 py-1 px-3 rounded-lg text-white font-semibold focus:outline-none"
+          className=" text-lg bg-purple-400 hover:bg-purple-500 shadow-sm shadow-black py-1 px-3 rounded-lg text-white font-semibold focus:outline-none"
         >
           Login
         </button>
         {dropdownOpen && (
-          <ul className="absolute left-0 mt-2 bg-gray-200 rounded-md shadow-lg py-2">
+          <ul className="absolute left-0 mt-2 bg-gray-200 rounded-md shadow-lg py-6 px-4">
             <li>
-              <Link to={"/AdminLogin"} className="block px-4 py-2 hover:bg-blue-500 hover:text-white">Admin</Link>
+              <Link to={"/AdminLogin"} className="block px-4 py-2 text-lg font-semibold hover:bg-blue-500 hover:text-white ">Admin</Link>
             </li>
+              <div className='w-full h-[0.5px] bg-black'></div>
             <li><Logindia value={false} handle={toggleDropdown} /></li>
           </ul>
         )}
@@ -69,22 +70,22 @@ const Header = () => {
         {isOpen && (
   <ul className="md:hidden flex flex-col items-center space-y-4 mt-4 md:mt-0 bg-gray-300 rounded-sm py-2">
     <li>
-      <a href="/" className="hover:underline text-lg hover:text-blue-700 font-semibold">
+      <a href="/" className="hover:underline text-lg hover:text-black font-semibold">
         Home
       </a>
     </li>
     <li>
-      <a href="#About" className="hover:underline text-lg hover:text-blue-700 font-semibold" onClick={toggleMenu}>
+      <a href="#About" className="hover:underline text-lg hover:text-black font-semibold" onClick={toggleMenu}>
         About
       </a>
     </li>
     <li>
-      <a href="#Features" className="hover:underline text-lg hover:text-blue-700 font-semibold" onClick={toggleMenu}>
+      <a href="#Features" className="hover:underline text-lg hover:text-black font-semibold" onClick={toggleMenu}>
         Features
       </a>
     </li>
     <li>
-      <a href="#" className="hover:underline text-lg hover:text-blue-700 font-semibold" onClick={toggleMenu}>
+      <a href="#" className="hover:underline text-lg hover:text-black font-semibold" onClick={toggleMenu}>
         Contact
       </a>
     </li>

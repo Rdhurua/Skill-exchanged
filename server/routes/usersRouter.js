@@ -1,11 +1,9 @@
-const express = require("express");
-const userModel = require("../model/user-model");
-const router = express.Router();
-const { registeredUser, loginUser,
-     logoutUser,userProfile,
-     uploadPicture, getInfo ,updateDetails,skillMatch} = require("../controllers/authController");
-const addMiddleware=require("../middleware/isLoggin");
-const validation=require("../middleware/isValid");
+import express  from "express";
+import { registeredUser, loginUser,
+    logoutUser,userProfile,uploadPicture, getInfo,updateDetails,skillMatch}  from "../controllers/authController.js";
+import addMiddleware from "../middleware/isLoggin.js";
+import validation from "../middleware/isValid.js";
+    const router =express.Router();
 
 
 router.get("/", function (req, res) {
@@ -24,4 +22,4 @@ router.get("/getUserProfile/:userId",getInfo);
 router.put("/update/:userId",updateDetails)
 router.post("/skillMatch/",skillMatch)
 
-module.exports = router
+export default router

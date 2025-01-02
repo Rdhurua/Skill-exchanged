@@ -1,10 +1,10 @@
-const jwt = require("jsonwebtoken");
-const userModel = require("../model/user-model");
+import jwt from "jsonwebtoken";
+import  userModel from "../model/user-model.js";
 
-module.exports = async function (req, res, next) {
+export default async function (req, res, next) {
     try {
         // Check if the token exists in cookies
-        const token = req.cookies.token;
+        const token = await req.cookies.token;
         if (!token) {
             return res.status(401).json({ message: "Sorry 😒, you have to log in first" });
         }
@@ -17,14 +17,13 @@ module.exports = async function (req, res, next) {
         if (!user) {
             return res.status(404).json({ message: "User not found. Please log in again." });
         }
+        //  console.log("you are in");
 
-        // Attach user to the request object
         req.user = user;
         next();
     } catch (err) {
         console.error("Authentication Error:", err.message);
-
-        // Handle token verification or other errors
+      
         if (err.name === "JsonWebTokenError") {
             return res.status(401).json({ message: "Invalid token. Please log in again." });
         }

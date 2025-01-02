@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-import {useAuth} from "./Authroute/AuthContext.jsx"
+import {useAuthContext} from "../Authroute/AuthContext"
 import Swal from "sweetalert2";
 import { FaEye } from "react-icons/fa";
 import { BsEyeSlashFill } from "react-icons/bs";
 import axios from 'axios'
+import {showToastMessage,showToastMessage2} from "../utils/Toasting.js"
+import useConversation from '../zustand/useConversation.js';
 
 const Logindia = ({ value,handle}) => {
   const [isOpen, setOpen] = useState(value);
   const navigate = useNavigate();
    const [shown,setShown]=useState(false);
-  const [token,setToken]=useState("");
 
-  const { login } = useAuth();
+  const { authUser,setAuthUser } = useAuthContext();
+   const {setLoggedId}=useConversation();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -24,49 +26,33 @@ const Logindia = ({ value,handle}) => {
     setCheck(!check);
   }
 
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-};
-
-
-
-
+  
 
   const handleLogout = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://skill-exchange-server.onrender.com/users/logout', {
-        method: 'POST',
-        credentials: 'include',
+      const response = await fetch("http://localhost:5900/users/logout", {
+        method: "POST",
+      headers:{'Content-Type':"application/json"}
       });
 
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        const result = await response.json();
-        console.log("Server response:", result);
-
-        if (response.ok) {
-          Swal.fire({
-            title: "Logged Out",
-            text: "You have successfully logged out.",
-            icon: "success",
-          }).then(() => {
-            navigate("/");
-            handlecheck();
-          });
-        } else {
-          console.log("Logout error:", result.message);
-        }
-      } else {
-        console.error("Unexpected server response format.");
+      const data = await response.json();
+      if(data.error){
+         throw new Error(data.error);
       }
-    } catch (error) {
-      console.error("Network error:", error);
+      localStorage.removeItem("skill-exchange-user",JSON.stringify(data));
+      setAuthUser(null);
+      showToastMessage("successfully logout!");
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+    }
+    catch(error){
+           showToastMessage2(error.message);
     }
   };
+
 
 
   //login working start here
@@ -84,21 +70,17 @@ const Logindia = ({ value,handle}) => {
   };
 
   const goToProfile = async () => {
+    //  console.log("running");
     try {
-      const response = await axios.get('https://skill-exchange-server.onrender.com/users/profile', {
+      const response = await axios.get('http://localhost:5900/users/profile', {
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json', 
         },
         withCredentials: true, // Include cookies for authentication if needed
       });
   
-      const userdata = response.data.user; // Axios automatically parses the JSON response
-      console.log(userdata);
-      // localStorage.setItem("userData", JSON.stringify(userdata.user));
-  
-      // Navigate to the user profile page and pass the data
-      navigate(`/userProfile/${userdata._id}`);
+      const userdata = response.data.user; 
+     navigate(`/userProfile/${userdata._id}`);
     } catch (error) {
       console.error('Error fetching user data:', error.response?.data || error.message);
     }
@@ -111,40 +93,37 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const response = await axios.post(
-      'https://skill-exchange-server.onrender.com/users/login',
-      formData, // This automatically converts to JSON
+      'http://localhost:5900/users/login',
+      formData, 
       {
         headers: {
           'Content-Type': 'application/json',
         },
-        withCredentials: true, // Enables sending cookies with the request
+        withCredentials: true, 
       }
     );
 
     const result = response.data;
-    console.log('Server response:', result.user.id);
-    
+      // console.log(result);
+      setLoggedId(result._id);
+      localStorage.setItem("skill-exchange-user",JSON.stringify(result));
+      setAuthUser(result);
 
-    if (response.status === 200) {
-      console.log(response.status);
       Swal.fire({
         title: "Wow!",
         text: `Hey ${result.user.name}! ${result.message}`,
         icon: "success",
       }).then(() => {
-        login();
-        setToken(getCookie('token'));
         goToProfile();
         handleClose();
         handlecheck();
       });
-      console.log(token);
-
+      
       setFormData({
         email: "",
         password: "",
       });
-    }
+    
   } catch (error) {
     console.error('Error during submission:', error);
     Swal.fire({
@@ -162,10 +141,10 @@ const handleSubmit = async (e) => {
     <>
       <button
         onClick={check==true? handleLogout : handleOpen}
-        className="block text-white md:text-blue-500 px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-semibold  hover:bg-blue-600 bg-blue-500 hover:text-white  md:bg-transparent text-nowrap"
+        className="block  px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-semibold  hover:bg-blue-600 bg-blue-500 hover:text-white  md:bg-transparent text-nowrap"
         type="button"
       >
-        {check==true ?"user-Logout" : "user-Log In"}
+        {check==true ?"userLogout" : "userLogIn"}
       </button>
 
       {isOpen && (

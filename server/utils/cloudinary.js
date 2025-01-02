@@ -1,7 +1,10 @@
-const express = require("express");
-const multer = require("multer");
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const cloudinary = require("cloudinary").v2;
+// import  from "express"
+// const multer = require("multer");
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import dotenv from "dotenv";
+import  cloudinary from "cloudinary";
+dotenv.config();
+
 
 
 cloudinary.config({
@@ -12,4 +15,4 @@ cloudinary.config({
 
   
 
-  module.exports=cloudinary;
+  export default cloudinary;
