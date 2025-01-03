@@ -3,18 +3,18 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import img1 from "../assets/banner1.jpg";
-import img2 from "../assets/banner2.jpg";
-import img3 from "../assets/banner3.jpg";
-import img4 from "../assets/banner-4.jpg";
-import img5 from "../assets/banner8.jpg";
+import img1 from "../../assets/banner1.jpg";
+import img2 from "../../assets/banner2.jpg";
+import img3 from "../../assets/banner3.jpg";
+import img4 from "../../assets/banner-4.jpg";
+import img5 from "../../assets/banner8.jpg";
 
 function CustomPrevArrow(props) {
   const { onClick } = props;
   return (
     <button
       onClick={onClick}
-      className="absolute left-4 top-1/2 md:top-1/3 transform -translate-y-1/2 bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-600 z-20"
+      className="absolute left-4 top-1/2  lg:top-1/3 transform -translate-y-1/2 bg-purple-800 text-white px-4 py-2 rounded-full hover:bg-purple-600 z-20"
     >
       &#10094;
     </button>
@@ -26,7 +26,7 @@ function CustomNextArrow(props) {
   return (
     <button
       onClick={onClick}
-      className="absolute right-4 top-1/2 md:top-1/3 transform -translate-y-1/2 bg-blue-800 text-white px-4 py-2 rounded-full hover:bg-blue-600 z-20"
+      className="absolute right-4 top-1/2 lg:top-1/3 transform -translate-y-1/2 bg-purple-800 text-white px-4 py-2 rounded-full hover:bg-purple-600 z-20"
     >
       &#10095;
     </button>

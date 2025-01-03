@@ -1,10 +1,10 @@
 // src/App.jsx
 import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import Footer from './components/Footer';
-import About from './components/About';
+import Header from './components/Home/Header.jsx';
+import Hero from './components/Home/Hero.jsx';
+import Features from './components/Home/Features.jsx';
+import Footer from './components/Home/Footer.jsx';
+import About from './components/Home/About.jsx';
 
 function App() {
   return (

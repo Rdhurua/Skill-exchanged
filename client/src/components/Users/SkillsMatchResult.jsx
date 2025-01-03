@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { IoMdCloseCircle } from "react-icons/io";
 import MessageContainer from "./MessageContainer.jsx"
-import useConversation from "../zustand/useConversation.js"
-import useGetMessage from '../hooks/useGetMessages.js';
+import useConversation from "../../zustand/useConversation.js"
+import useGetMessage from '../../hooks/useGetMessages.js';
+import { useAuthContext } from '../../Authroute/AuthContext.jsx';
+
 const SkillsMatchResult = ({results,checker,participant1}) => {
+
+
 const[loading,setLoading]=useState(false);
 const [viewProfile, setViewProfile] = useState(false);
 const [key, setKey] = useState(null);
@@ -15,11 +19,11 @@ const [currentParticipant, setCurrentParticipant] = useState(null); // Store cur
 
 
 useEffect(() => {
+  let intervalId; // To store the interval ID
+
   const getMessage = async () => {
     setLoading(true);
     try {
-      console.log("Fetching messages for:", participant1, currentParticipant);
-
       const res = await fetch(`http://localhost:5900/messages/getMessage`, {
         method: "POST",
         headers: {
@@ -30,15 +34,10 @@ useEffect(() => {
           participant2: currentParticipant,
         }),
       });
-
-      console.log("Response status:", res.status);
       const data = await res.json();
-      console.log("Response data:", data);
-
       if (data.error) {
         throw new Error(data.error);
       }
-
       setMessages(data);
     } catch (error) {
       toast.error(error.message);
@@ -48,7 +47,14 @@ useEffect(() => {
     }
   };
 
-  if (currentParticipant) getMessage();
+  if (currentParticipant) {
+ 
+    getMessage();
+    intervalId = setInterval(getMessage, 1000);
+  }
+  return () => {
+    if (intervalId) clearInterval(intervalId);
+  };
 }, [currentParticipant]);
 
 
@@ -56,7 +62,7 @@ useEffect(() => {
 const handleConversation = async (id) => {
   setIsOverlayOpen(false); // Hide the overlay
   setIsMessageContainerOpen(true);
-  setCurrentParticipant(id); // Set the current participant's ID, triggering the useEffect
+  setCurrentParticipant(id); 
   // setSelectedConversation(user);
   setLoggedId(participant1);
 
@@ -82,7 +88,7 @@ const handleConversation = async (id) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {results.map((user, index) => (
           <div
-            key={user.id}
+            key={index}
             className="bg-white p-4 rounded-lg shadow-md border border-gray-200"
           >
             <h3 className="text-lg font-bold text-gray-800">
@@ -102,40 +108,25 @@ const handleConversation = async (id) => {
 
         {/* Overlay for user details */}
         {results.map((user, index) => (
-          <div
-            key={`overlay-${index}`}
-            className={`relative ${
-              viewProfile && key === index ? "relative" : "hidden"
-            }`}
-          >
+          <div key={`overlay-${index}`}
+            className={`relative ${viewProfile && key === index ? "relative" : "hidden"}`}>
             {/* Overlay */}
             <div>
-            {isOverlayOpen && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    {/* Content Card */}
-    <div className="bg-white w-full max-w-2xl h-[80%] rounded-lg shadow-lg p-6">
-      {/* Header */}
-      <div className="flex justify-between items-center border-b pb-3">
-        <h2 className="text-xl font-semibold text-gray-800">User Details</h2>
-        <button
-          className="text-red-500 hover:text-red-600 text-3xl"
-          onClick={() => {
-            setIsOverlayOpen(false);
-            setIsMessageContainerOpen(false);
-          }}
-        >
-          <IoMdCloseCircle />
-        </button>
-      </div>
+               {isOverlayOpen && (<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+
+                <div className="bg-white w-full max-w-2xl h-auto rounded-lg shadow-lg p-6">
+    
+                  <div className="flex justify-between items-center border-b pb-3">
+                     <h2 className="text-xl font-semibold text-gray-800">User Details</h2>
+                        <button className="text-red-500 hover:text-red-600 text-3xl"onClick={() => {
+                 setIsOverlayOpen(false); setIsMessageContainerOpen(false);}}> <IoMdCloseCircle /> </button>
+              </div>
 
       {/* User Info */}
       <div className="mt-4">
+
         <div className="flex flex-col justify-center items-center bg-gradient-to-r from-violet-200 to-pink-200 p-3">
-          <img
-            src={user.profilePicture.data}
-            alt="loading"
-            className="w-36 h-36 rounded-full"
-          />
+          <img src={user.profilePicture.data} alt="loading"className="w-36 h-36 rounded-full"/>
           <p className="text-gray-900 font-semibold text-xl">{user.name}</p>
         </div>
 
@@ -143,10 +134,8 @@ const handleConversation = async (id) => {
           <h2 className="font-semibold text-gray-700 text-xl underline">Skills</h2>
           <ul className="flex flex-wrap gap-3 mt-2">
             {user.Skills.map((skill, skillIndex) => (
-              <li
-                key={skillIndex}
-                className="px-4 py-2 bg-blue-200 text-blue-700 rounded-lg shadow-sm font-semibold"
-              >
+              <li key={skillIndex}
+                className="px-4 py-2 bg-blue-200 text-blue-700 rounded-lg shadow-sm font-semibold">
                 {skill}
               </li>
             ))}
@@ -180,20 +169,12 @@ const handleConversation = async (id) => {
       <div className="mt-6 text-center">
         <button
           className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600"
-          onClick={() => {
-            setIsOverlayOpen(false);
-            setIsMessageContainerOpen(true);
-            handleConversation(user._id);
-            setSelectedConversation(user);
-            
-          }}
-        >
-          Start Chat
-        </button>
+          onClick={() => {setIsOverlayOpen(false);setIsMessageContainerOpen(true);handleConversation(user._id);
+            setSelectedConversation(user);}}>Start Chat</button>
       </div>
     </div>
   </div>
-           )}
+     )}
 
 
      {isMessageContainerOpen && (
@@ -201,14 +182,8 @@ const handleConversation = async (id) => {
     {/* Close Button */}
     <button
       className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-3xl"
-      onClick={() => {
-        setIsMessageContainerOpen(false);
-        setIsOverlayOpen(true);
-        setSelectedConversation(null);
-      }}
-    >
-      <IoMdCloseCircle />
-    </button>
+      onClick={() => { setIsMessageContainerOpen(false);setIsOverlayOpen(true);setSelectedConversation(null);}}
+><IoMdCloseCircle /></button>
 
     {/* Message Container */}
     <div className="p-6 w-full max-w-3xl bg-gray-100 rounded-lg shadow-lg mx-4">
@@ -219,8 +194,6 @@ const handleConversation = async (id) => {
     </div>
   </div>
           )}
-
-
 
     </div>
           </div>

@@ -1,13 +1,14 @@
 import React  from 'react'
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
-import useConversation from '../zustand/useConversation';
-import useGetMessage from '../hooks/useGetMessages';
-
+import useConversation from '../../zustand/useConversation';
+import useGetMessage from '../../hooks/useGetMessages';
+import { useState } from 'react';
 
 const MessageContainer = () => {
   //  const{loading}=useGetMessage();
    const{selectedConversation}=useConversation();
+   const [value,setValue]=useState(false);
 
   return (
     <div class="flex flex-col h-[90vh]  bg-gray-100">
@@ -24,7 +25,7 @@ const MessageContainer = () => {
  
   <div class="flex-grow overflow-y-auto bg-white rounded-lg shadow-md p-4 mb-4">
     
-    <Messages />
+    <Messages/>
   </div>
 
  

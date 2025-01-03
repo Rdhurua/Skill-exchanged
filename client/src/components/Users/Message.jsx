@@ -1,12 +1,13 @@
 import React from 'react'
-import {useAuthContext} from "../Authroute/AuthContext.jsx";
-import useConversation from '../zustand/useConversation';
+import {useAuthContext} from "../../Authroute/AuthContext.jsx";
+import useConversation from '../../zustand/useConversation.js';
 const Message = ({message}) => {
-  const {selectedConversation}=useConversation();
+  const {selectedConversation,me}=useConversation();
+   const {authUser}=useAuthContext();
+  
  const fromHim=(message.senderId===selectedConversation._id);
-  // console.log(fromMe);
   const className=fromHim?"flex items-center mb-4":"flex items-center justify-end mb-4";
-  const imageSrc=fromHim?selectedConversation.profilePicture.data:"https://ashisheditz.com/wp-content/uploads/2023/11/boys-dp-instagram.jpg";
+  const imageSrc=fromHim?selectedConversation.profilePicture.data:"https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg";
   const textColor=fromHim?"bg-pink-300 text-black":"bg-blue-300 text-black";
   return (
     <>

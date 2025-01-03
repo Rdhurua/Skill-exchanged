@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Navigate } from "react-router-dom";
 import { GrPowerReset } from "react-icons/gr";
-import{ useAuthContext} from "../Authroute/AuthContext.jsx"
+import{ useAuthContext} from "../../Authroute/AuthContext.jsx"
 import toast from 'react-hot-toast';
 import SkillsMatchResult from "./SkillsMatchResult.jsx";
 
@@ -81,7 +81,7 @@ const participant1=userId;
     <div>
       {/* Skill Selection */}
       <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md max-w-xl sm:max-w-2xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+        <div className="flex justify-between items-center ">
           <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-0">
             Select Skills You Want to Learn:
           </h2>

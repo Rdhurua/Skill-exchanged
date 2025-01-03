@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-import {useAuthContext} from "../Authroute/AuthContext"
+import {useAuthContext} from "../Authroute/AuthContext.jsx"
 import Swal from "sweetalert2";
 import { FaEye } from "react-icons/fa";
 import { BsEyeSlashFill } from "react-icons/bs";
@@ -14,7 +14,7 @@ const Logindia = ({ value,handle}) => {
    const [shown,setShown]=useState(false);
 
   const { authUser,setAuthUser } = useAuthContext();
-   const {setLoggedId}=useConversation();
+   const {setLoggedId,setMe}=useConversation();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -43,6 +43,7 @@ const Logindia = ({ value,handle}) => {
       }
       localStorage.removeItem("skill-exchange-user",JSON.stringify(data));
       setAuthUser(null);
+      setMe(null);
       showToastMessage("successfully logout!");
           setTimeout(() => {
             navigate("/");
@@ -108,6 +109,8 @@ const handleSubmit = async (e) => {
       setLoggedId(result._id);
       localStorage.setItem("skill-exchange-user",JSON.stringify(result));
       setAuthUser(result);
+      setMe(result.profilePicture);
+      
 
       Swal.fire({
         title: "Wow!",

@@ -76,6 +76,7 @@ console.log(token);
         id: user._id,
         email: user.email,
         name: user.name,
+        profilePicture:user.profilePicture.data,
       },
       token,
     });

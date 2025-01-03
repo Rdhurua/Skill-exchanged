@@ -41,4 +41,4 @@ const useGetMessage = () => {
         return {loading};
 }
 
-export default useGetMessage
+export default useGetMessage;

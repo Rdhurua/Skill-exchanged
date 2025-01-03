@@ -1,6 +1,6 @@
 import React, { useState,useContext } from 'react';
-import Logindia from "./Logindia.jsx";
-import logo from "../assets/fg.png";
+import Logindia from "../../pages/Login.jsx";
+import logo from "../../assets/fg.png";
 import { Link } from 'react-router-dom';
 
 const Header = () => {

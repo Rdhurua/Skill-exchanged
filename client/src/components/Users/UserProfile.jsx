@@ -4,9 +4,9 @@ import { FaUserEdit } from "react-icons/fa";
 import axios from "axios";
 import { ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import goToSection from "../utils/GotoFunction.jsx";
-import { useAuthContext } from "../Authroute/AuthContext.jsx";
-import { showToastMessage2,showToastMessage } from "../utils/Toasting.js";
+import goToSection from "../../utils/GotoFunction.jsx";
+import { useAuthContext } from "../../Authroute/AuthContext.jsx";
+import { showToastMessage2,showToastMessage } from "../../utils/Toasting.js";
 
 function UserProfile() {
   const { userId } = useParams();
@@ -107,7 +107,6 @@ function UserProfile() {
     }
   };
 
-  
 
   const toggleValue = (index) => {
     console.log(visibleDiv);
@@ -124,9 +123,6 @@ function UserProfile() {
       setAuthUser(JSON.parse(storedUser));
     }
   }, []);
-
-
-
 
 
   const handleLogout = async (e) => {
@@ -159,9 +155,6 @@ function UserProfile() {
     setFile(e.target.files[0]); // Get the selected file
     //  console.log(data.profilePicture.data);
   };
-
-
-
 
   //uploading picture
   const handleSubmit = async (e) => {
