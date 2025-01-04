@@ -55,8 +55,12 @@ const userSchema=mongoose.Schema({
       Learnt:{
          type:Array,
          default:[],
-      }
-});
+      },
+      // createdAt: { type: Date, default: Date.now },
+      // isActive: { type: Boolean, default: false },
+      lastLogin:{type:Date,default:null},
+      isLoggedIn: { type: Boolean, default: false }
+},{ timestamps: true });
 const user=mongoose.model("user",userSchema);
 
 export default user;

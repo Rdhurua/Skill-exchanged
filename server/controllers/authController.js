@@ -41,7 +41,6 @@ export const registeredUser=async function(req,res){
 export const loginUser = async function (req, res) {
   const { email, password } = req.body;
   try {
-    // Check if user exists
     const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(400).json({
@@ -56,12 +55,8 @@ export const loginUser = async function (req, res) {
         error: "Invalid username or password",
       });
     }
-
-    // Generate a token
     const token = await generateToken(user);
-console.log(token);
 
-    // Set cookie with the token
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -70,6 +65,11 @@ console.log(token);
     });
 
     // Respond with user details
+      user.lastLogin=new Date();
+      user.isLoggedIn = true;
+      await user.save();
+
+      
     res.status(200).json({
       message: 'Login successful',
       user: {
@@ -87,8 +87,10 @@ console.log(token);
 };
 
 
-
 export const logoutUser=async function (req,res) {
+   const {userId}=req.params;
+
+   await userModel.findByIdAndUpdate(userId, { isLoggedIn: false });
    res.cookie("token"," ");
    res.status(200).json("successfull logout");
    
@@ -191,7 +193,6 @@ export const updateDetails=async(req,res)=>{
 }
 
 
-
 export const skillMatch = async (req, res) => {
   try {
     const { Skills, userId } = req.body; 
@@ -254,35 +255,51 @@ export const registeredAdmin=async function(req,res) {
     
 }
 export const loginAdmin=async function(req,res){
-    let {email,password}=req.body;
-
-    try{
-
-       let admin=await adminModel.findOne({email:email});
-       if(!admin){
-          res.status(401).send("Access Denied");
-       }
-   
-        else{
-          bcrypt.compare(password,admin.password,async function(err,result){
-              if(result){
-                let token=generateToken(admin);
-                res.cookie("token",token,{
-                  httpOnly: true,  
-                  secure: process.env.NODE_ENV === 'production', 
-                  maxAge: 3600000, 
-                  sameSite: 'Strict'
-              });
-                res.status(200).json({message:"admin logged in successfull",admin});
-              }
-              else{
-                res.status(404).json({message:"you have entered wrong password"});
-              }
-          })
-        }
-    } catch(err){
-       res.status(404).json(err.message);
+  const { email, password } = req.body;
+  try {
+    // Check if user exists
+    const admin = await adminModel.findOne({ email });
+    if (!admin) {
+      return res.status(400).json({
+        error: "you don't have access",
+      });
     }
+
+    // Compare the password
+    const isPasswordCorrect = await bcrypt.compare(password, admin.password);
+    if (!isPasswordCorrect) {
+      return res.status(400).json({
+        error: "Invalid username or password",
+      });
+    }
+
+    // Generate a token
+    const token = await generateToken(admin);
+// console.log(token);
+
+    // Set cookie with the token
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 3600000, // 1 hour
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+    });
+
+    // Respond with user details
+    res.status(200).json({
+      message: 'Admin,Login successful ',
+      admin,
+      token,
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: "Internal server error." });
+  }
      
+}
+
+export const logoutAdmin=async function(req,res){
+  res.cookie("token"," ");
+   res.status(200).json("successfull logout");
 }
 

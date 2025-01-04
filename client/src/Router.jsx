@@ -12,6 +12,7 @@ import SessionExpired from './components/Users/SessionExpired.jsx'
 import SkillsMatching from './components/Users/SkillsMatching.jsx'
 import Dashboard from './pages/Dashbard.jsx'
 import MessageContainer from "./components/Users/MessageContainer.jsx"
+import AdminDashboard from './components/Admin/AdminDashboard.jsx'
 
 const Routing = () => {
   return <AuthProvider>
@@ -21,6 +22,8 @@ const Routing = () => {
     <Route path='/' element={<App/>} />
     <Route path='/CreateAccount' element={<CreateAccount/>} />
     <Route path='/AdminLogin' element={<AdminLogin/>} />
+    <Route path='/adminDashboard' element={<AdminDashboard/>} />
+
     <Route path='/AdminRegister' element={<AdminCreate/>} />
     <Route path='/login' element={<Logindia value={true}/>} />
     <Route path='/session' element={<SessionExpired />} />

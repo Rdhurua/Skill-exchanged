@@ -10,3 +10,21 @@ body{
      @apply bg-gradient-to-r from-rose-100 to-teal-100
       
 }
+table tr:hover {
+     background-color: #f3f4f6; /* Light gray hover effect */
+   }
+
+   .bg-blue-900 {
+     background-color: #1e3a8a;
+   }
+
+   .grid {
+     display: grid;
+   }
+   .shadow {
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   }
+   .rounded-lg {
+     border-radius: 0.5rem;
+   }
+   

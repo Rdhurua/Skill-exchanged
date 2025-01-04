@@ -129,7 +129,7 @@ function UserProfile() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5900/users/logout", {
+      const response = await fetch(`http://localhost:5900/users/logout/${userId}`, {
         method: "POST",
       headers:{'Content-Type':"application/json"}
       });

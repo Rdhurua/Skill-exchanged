@@ -10,9 +10,9 @@ router.get("/", function (req, res) {
     res.send("hey we are users don't ,just do the interest");
 });
 
-router.post("/register", registeredUser);
+router.post("/register",registeredUser);
 router.post("/login", loginUser);
-router.post("/logout", logoutUser);
+router.post("/logout/:userId",logoutUser);
 router.get("/auth/validate",validation);
 router.get("/profile",addMiddleware,userProfile);
 
