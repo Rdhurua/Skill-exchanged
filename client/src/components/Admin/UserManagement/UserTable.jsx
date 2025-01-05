@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllUsers } from '../services/UserAPI.js';
+import { getAllUsers } from '../services/UserApI.js';
 import UserActions from './UserActions';
 import SearchFilter from './SearchFilter';
 
