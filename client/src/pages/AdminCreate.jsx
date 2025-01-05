@@ -22,11 +22,13 @@ const AdminCreate = () => {
 
       const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        if (formData.password !== formData.confirmPassword) {
-          alert('Passwords do not match');
-          return;
-        }
+       
+         for(const[key,value] of Object.entries(formData)){
+          if(value.trim()===''){
+            alert(`${key} cannot be empty`);
+            return;
+          }
+         }
     
         try {
           const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admins/register`, {
