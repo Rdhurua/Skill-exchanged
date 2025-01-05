@@ -31,7 +31,7 @@ const AdminCreate = () => {
          }
     
         try {
-          const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admins/register`, {
+          const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admin/register`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
