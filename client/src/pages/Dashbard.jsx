@@ -34,13 +34,13 @@ const Dashbard = () => {
     <div className=" h-full w-full">
       <div className="w-full bg-gradient-to-r from-rose-100 to-teal-100 flex justify-center items-center py-3 shadow-md shadow-black sticky top-0">
         <button
-          className="text-white text-xl list-none mr-2 px-3 py-2 bg-blue-500 hover:bg-blue-600 rounded-md shadow-sm shadow-black"
+          className="text-white text-xl list-none mr-2 px-3 py-2 bg-purple-500 hover:bg-purple-600 rounded-md shadow-sm shadow-black"
           onClick={handleSendRequest2}
         >
           Home
         </button>
         <button
-          className="text-white text-xl list-none px-3 py-2 bg-blue-500 hover:bg-blue-600 rounded-md shadow-sm shadow-black"
+          className="text-white text-xl list-none px-3 py-2 bg-purple-500 hover:bg-purple-600 rounded-md shadow-sm shadow-black"
           onClick={handleSendRequest1}
         >
           userProfile

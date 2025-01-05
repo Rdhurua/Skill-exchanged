@@ -9,7 +9,7 @@ const useSendMessage = () => {
     const sendMessage=async(message)=>{
         setLoading(true);
           try{
-            const res=await fetch(`http://localhost:5900/messages/send`,{
+            const res=await fetch(`${import.meta.env.VITE_BASE_URL}/messages/send`,{
                 method:"POST",
                 headers:{
                    "Content-Type":"application/json"

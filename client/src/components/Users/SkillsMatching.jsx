@@ -38,7 +38,7 @@ const SkillsMatching =({userId} ) => {
     } else {
       try {
         const response = await axios.post(
-          "http://localhost:5900/users/skillMatch",
+          `${import.meta.env.VITE_BASE_URL}/users/skillMatch`,
           {
             Skills: selectedSkills, // Pass selected skills
             userId: userId,
@@ -74,7 +74,7 @@ const participant1=userId;
  
   return (
     <div className="bg-gray-100 p-4 sm:p-6 lg:p-8">
-    <h1 className="text-2xl sm:text-3xl font-bold text-center text-blue-600 mb-4 sm:mb-6">
+    <h1 className="text-2xl sm:text-3xl font-bold text-center text-purple-600 mb-4 sm:mb-6">
       Skill Matching Platform
     </h1>
   
@@ -100,9 +100,9 @@ const participant1=userId;
               onClick={() => handleSkillSelect(skill.toLowerCase())}
               className={`px-4 py-2 rounded-full transition-all duration-300 ${
                 selectedSkills.includes(skill.toLowerCase())
-                  ? "bg-blue-500 text-white"
+                  ? "bg-purple-500 text-white"
                   : "bg-gray-200 text-gray-800"
-              } hover:bg-blue-400 hover:text-white`}
+              } hover:bg-purple-400 hover:text-white`}
             >
               {skill}
             </button>
@@ -112,7 +112,7 @@ const participant1=userId;
         <div className="text-right mt-4">
           <button
             onClick={handleSearch}
-            className="px-4 sm:px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300"
+            className="px-4 sm:px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all duration-300"
           >
             Match whatever you want to learn
           </button>

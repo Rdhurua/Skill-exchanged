@@ -1,6 +1,5 @@
 import  User from '../model/user-model.js';
 
-// Fetch all users
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({});
@@ -10,7 +9,6 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// Update user details
 const updateUser = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
@@ -26,7 +24,6 @@ const updateUser = async (req, res) => {
   }
 };
 
-// Delete a user
 const deleteUser = async (req, res) => {
   const { id } = req.params;
 
@@ -44,16 +41,16 @@ const deleteUser = async (req, res) => {
 const Statistics=async(req,res)=>{
   try {
     const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0); // Start of today
+    startOfDay.setHours(0, 0, 0, 0); 
 
-    const totalUsers = await User.countDocuments(); // Count all users
+    const totalUsers = await User.countDocuments(); 
     const loggedInToday = await User.countDocuments({
-      lastLogin: { $gte: startOfDay }, // Users who logged in today
+      lastLogin: { $gte: startOfDay }, 
     });
     const newUsersToday = await User.countDocuments({
-      createdAt: { $gte: startOfDay }, // Users who registered today
+      createdAt: { $gte: startOfDay }, 
     });
-    const currentLoggedIn = await User.countDocuments({ isLoggedIn: true }); // Users currently logged in
+    const currentLoggedIn = await User.countDocuments({ isLoggedIn: true }); 
 
     res.status(200).json({
       totalUsers,

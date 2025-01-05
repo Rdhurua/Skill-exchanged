@@ -23,13 +23,13 @@ const AdminCreate = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
     
-        // if (formData.password !== formData.confirmPassword) {
-        //   alert('Passwords do not match');
-        //   return;
-        // }
+        if (formData.password !== formData.confirmPassword) {
+          alert('Passwords do not match');
+          return;
+        }
     
         try {
-          const response = await fetch('http://localhost:5900/admins/register', {
+          const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admins/register`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -136,34 +136,24 @@ const AdminCreate = () => {
               Phone
             </label>
             <input
-              type="number"
+              type="tel"
               name="phoneNumber"
               id="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
               required
               autoComplete="off"
+              maxLength="10" 
+               pattern="[0-9]{10}"
               className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder="enter your mobile number"
             />
           </div>
 
 
-          {/* <div className="mb-4">
-            <label htmlFor="role" className="block text-sm font-medium text-gray-700">
-              what role you preffer
-            </label>
-            <select value={formData.role} onChange={handleChange} id="role" name="role" required autoComplete="off"
-              className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-              <option value="">Select role</option>
-              <option value="learner">learner</option>
-              <option value="provider">provider</option>
-            </select>
-          </div> */}
-
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300"
+            className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-300"
           >
             Create Account
           </button>

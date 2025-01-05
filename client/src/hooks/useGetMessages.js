@@ -10,7 +10,7 @@ const useGetMessage = () => {
             const getMessages = async () => {
                 setLoading(true);
                 try {
-                    const res = await fetch(`http://localhost:5900/messages/getMessage`, {
+                    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/messages/getMessage`, {
                       method: "POST",
                       headers: {
                         "Content-Type": "application/json",

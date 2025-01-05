@@ -16,17 +16,16 @@ function UserProfile() {
   const goToProfile = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5900/users/profile`, {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/profile`, {
         headers: {
           "Content-Type": "application/json",
-        
         },
-        withCredentials: true, // Include cookies for authentication if needed
+        withCredentials: true, 
       });
       const userdata = response.data.user;
       //  console.log(userdata);
       setData(userdata);
-      //  console.log(data);
+       console.log(data);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -36,13 +35,8 @@ function UserProfile() {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      goToProfile();
-    }, 1000); // Runs every 1000ms (1 second)
-
-    // Cleanup the interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
+    goToProfile();
+  }, [userId]);
 
   const navigate = useNavigate();
 
@@ -60,15 +54,16 @@ function UserProfile() {
   
 
   const [newAbout, setNewAbout] = useState(data.about);
-  const [newSkills, setNewSkills] = useState(data.Skills || []);
-  const [newCourse, setNewCoures] = useState(data.Course || []);
-  const [newLearnt, setNewLearnt] = useState(data.learnt || []);
+  const [newSkills, setNewSkills] = useState(data.Skills );
+  const [newCourse, setNewCoures] = useState(data.Course);
+  const [newLearnt, setNewLearnt] = useState(data.learnt);
 
-  const [message2, setMessage2] = useState("");
 
   const handleEditClick = () => {
     setIsEditing(true); // Enable edit mode
     setNewAbout(data.about); // Set the current about text
+    setNewSkills(data.Skills);
+    setNewCoures(data.Course);
   };
 
   const handleUpdates = async (e) => {
@@ -86,17 +81,21 @@ function UserProfile() {
     try {
         
       const response = await axios.put(
-        `http://localhost:5900/users/update/${userId}`,
+        `${import.meta.env.VITE_BASE_URL}/users/update/${userId}`,
         updates
       );
 
       const updatedDetails = response.user;
+      
       setData((prevData) => ({
         ...prevData,
         ...updatedDetails,
       }));
+      console.log(data);
 
       showToastMessage("Profile updated successfully!");
+      fetchUserProfile();
+      goToProfile();
      
     } catch (error) {
       console.error(
@@ -106,6 +105,8 @@ function UserProfile() {
       alert("Error updating profile!");
     }
   };
+
+
 
 
   const toggleValue = (index) => {
@@ -129,7 +130,7 @@ function UserProfile() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:5900/users/logout/${userId}`, {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/users/logout/${userId}`, {
         method: "POST",
       headers:{'Content-Type':"application/json"}
       });
@@ -158,6 +159,7 @@ function UserProfile() {
 
   //uploading picture
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     if (!file) {
@@ -172,15 +174,13 @@ function UserProfile() {
         setUploading(true);
   // console.log(token);
         const response = await axios.post(
-          "http://localhost:5900/users/uploadPicture",
+          `${import.meta.env.VITE_BASE_URL}/users/uploadPicture`,
           {
-              image: reader.result, // Send the Base64 string
-              userId: data._id, // Replace this with the actual user ID
+              image: reader.result, // Sending the Base64 string
+              userId: data._id, // Replacing this with the actual user ID
           },
          
       );
-      
-
         setUploading(false);
         setMessage("Profile picture uploaded successfully!");
         showToastMessage(message);
@@ -202,9 +202,11 @@ function UserProfile() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:5900/users/getUserProfile/${userId}`
+        `${import.meta.env.VITE_BASE_URL}/users/getUserProfile/${userId}`
       );
+
       setUser(response.data.user); // Set the user data
+      console.log(user);
       setLoading(false);
    
     } catch (err) {
@@ -216,7 +218,7 @@ function UserProfile() {
 
   useEffect(() => {
     fetchUserProfile();
-  }, []);
+  },[]);
 
   return (
     <>
@@ -235,7 +237,7 @@ function UserProfile() {
                   "https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197911.png"
                 }
                 alt="Profile"
-                className="w-32 h-32 rounded-full object-cover border-2 border-blue-500"
+                className="w-32 h-32 rounded-full object-cover border-2 border-purple-500"
               />
               <form
                 onSubmit={handleSubmit}
@@ -243,7 +245,7 @@ function UserProfile() {
               >
                 <label
                   htmlFor="fileInput"
-                  className="bg-white text-black px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-blue-600 hover:text-white"
+                  className="bg-white text-black px-3 py-1 rounded-md text-sm cursor-pointer hover:bg-purple-600 hover:text-white"
                 >
                   <FaUserEdit className="text-lg" />
                 </label>
@@ -257,7 +259,7 @@ function UserProfile() {
                 />
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white py-1 px-3 rounded-md mt-2 hover:bg-blue-600"
+                  className="bg-purple-500 text-white py-1 px-3 rounded-md mt-2 hover:bg-purple-600"
                 >
                   Submit
                 </button>
@@ -273,7 +275,7 @@ function UserProfile() {
 
               <button
                 onClick={handleLogout}
-                className=" text-white px-3 py-2 text-md font-semibold bg-blue-500 hover:bg-blue-600 rounded-md"
+                className=" text-white px-3 py-2 text-md font-semibold bg-purple-500 hover:bg-purple-600 rounded-md"
               >
                 Log Out
               </button>
@@ -283,38 +285,38 @@ function UserProfile() {
           {/* Navigation Buttons */}
           <div className="h-3/4 flex flex-col p-5 ">
             <button
-              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-blue-500 hover:text-white border-b-2 border-gray-200 rounded-md"
+              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-purple-500 hover:text-white border-b-2 border-gray-200 rounded-md"
               onClick={() => goToSection("userAbout")}
             >
               About
             </button>
             <button
-              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-blue-500 hover:text-white border-b-2 border-gray-200 rounded-md"
+              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-purple-500 hover:text-white border-b-2 border-gray-200 rounded-md"
               onClick={() => goToSection("userSkills")}
             >
               Skills
             </button>
             <button
-              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-blue-500 hover:text-white border-b-2 border-gray-200 rounded-md"
+              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-purple-500 hover:text-white border-b-2 border-gray-200 rounded-md"
               onClick={() => goToSection("userCourse")}
             >
               Course Providing
             </button>
             <button
-              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-blue-500 hover:text-white border-b-2 border-gray-200 rounded-md"
+              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-purple-500 hover:text-white border-b-2 border-gray-200 rounded-md"
               onClick={() => toggleDiv(4)}
             >
               Contact Me
             </button>
-            <button
-              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-blue-500 hover:text-white border-b-2 border-gray-200 rounded-md"
+            {/* <button
+              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-purple-500 hover:text-white border-b-2 border-gray-200 rounded-md"
               onClick={() => toggleDiv(5)}
             >
               What I Have Learned?
             </button>
-            <button className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-blue-500 hover:text-white border-b-2 border-gray-200 rounded-md">
+            <button className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:purplelue-500 hover:text-white border-b-2 border-gray-200 rounded-md">
               Hello
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -323,7 +325,7 @@ function UserProfile() {
           {
             <div className="w-full lg:w-2/3 h-auto mx-auto my-5 p-6 bg-white  rounded-lg ">
               <header className="text-center mb-6">
-                <h1 className="text-3xl font-bold text-blue-500">
+                <h1 className="text-3xl font-bold text-purple-600">
                   {" "}
                   Hello,Welcome {data.name}
                 </h1>
@@ -347,7 +349,7 @@ function UserProfile() {
             id="userAbout"
           >
             <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-blue-600 md:text-4xl">
+              <h1 className="text-3xl font-bold text-purple-600 md:text-4xl">
                 About
               </h1>
             </header>
@@ -386,7 +388,7 @@ function UserProfile() {
                   </button>
                 ) : (
                   <button
-                    className="px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                    className="px-6 py-2 text-white bg-purple-500 rounded-lg shadow hover:bg-purple-600 focus:ring-4 focus:ring-purple-300"
                     onClick={() => {
                       handleEditClick(); // Trigger editing
                       toggleValue(0); // Set visibleDiv to 0 to indicate this section is active
@@ -414,7 +416,7 @@ function UserProfile() {
             id="userSkills"
           >
             <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-blue-600 md:text-4xl">
+              <h1 className="text-3xl font-bold text-purple-600">
                 Skills Section
               </h1>
             </header>
@@ -425,7 +427,7 @@ function UserProfile() {
                   {data.Skills.map((skill, index) => (
                     <li
                       key={index}
-                      className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg shadow-sm"
+                      className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg shadow-sm"
                     >
                       {skill}
                     </li>
@@ -443,7 +445,7 @@ function UserProfile() {
                   <input
                     type="text"
                     placeholder="Add a skill (comma-separated)"
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                     value={newSkills}
                     onChange={(e) => setNewSkills(e.target.value.split(","))}
                   />
@@ -469,7 +471,7 @@ function UserProfile() {
                 </button>
               ) : (
                 <button
-                  className="px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                  className="px-6 py-2 text-white bg-purple-500 rounded-lg shadow hover:bg-purple-600 focus:ring-4 focus:ring-purple-300"
                   onClick={() => {
                     handleEditClick(); // Trigger editing
                     toggleValue(1); // Set visibleDiv to 0 to indicate this section is active
@@ -486,7 +488,7 @@ function UserProfile() {
             id="userCourse"
           >
             <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-blue-500">
+              <h1 className="text-3xl font-bold text-purple-600">
                 Course Providing
               </h1>
             </header>
@@ -497,7 +499,7 @@ function UserProfile() {
                   {data.Course.map((course, index) => (
                     <li
                       key={index}
-                      className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg shadow-sm"
+                      className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg shadow-sm"
                     >
                       {course}
                     </li>
@@ -541,7 +543,7 @@ function UserProfile() {
                 </button>
               ) : (
                 <button
-                  className="px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                  className="px-6 py-2 text-white bg-purple-500 rounded-lg shadow hover:bg-purple-600 focus:ring-4 focus:ring-purple-300"
                   onClick={() => {
                     handleEditClick(); // Trigger editing
                     toggleValue(2); // Set visibleDiv to 0 to indicate this section is active
@@ -558,7 +560,7 @@ function UserProfile() {
             id="userContact"
           >
             <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-blue-500">Contact Me</h1>
+              <h1 className="text-3xl font-bold text-purple-600">Contact Me</h1>
             </header>
 
             {/* About Section */}
@@ -577,27 +579,27 @@ function UserProfile() {
                 href={`https://mail.google.com/mail/?view=cm&fs=1&to=${data.email}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block mb-4 text-center px-4 py-2 bg-blue-500 text-white font-semibold rounded shadow hover:bg-blue-600 transition duration-200"
+                className="block mb-4 text-center px-4 py-2 bg-purple-500 text-white font-semibold rounded shadow hover:bg-purple-600 transition duration-200"
               >
                 Send an Email
               </a>
 
               {/* Chat Request Button */}
-              <button
+              {/* <button
                 onClick={() => alert("Chat request sent!")}
                 className="block w-full text-center px-4 py-2 bg-green-500 text-white font-semibold rounded shadow hover:bg-green-600 transition duration-200"
               >
                 Send Chat Request
-              </button>
+              </button> */}
             </section>
           </div>
 
-          <div
+          {/* <div
             className="max-w-4xl mx-auto my-5 p-6 bg-white shadow-lg rounded-lg "
             id="userLearnt"
           >
             <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-blue-500">
+              <h1 className="text-3xl font-bold text-purple-600">
                 what learned till now
               </h1>
             </header>
@@ -609,25 +611,22 @@ function UserProfile() {
             <section className="mb-6">
               <h2 className="text-2xl font-semibold">what we provide</h2>
               <ul>
-                {/* {user.skills.map(skill => (
-            <li key={skill} className="text-gray-700">- {skill}</li>
-          ))} */}
+                
                 making toy@@@@
               </ul>
             </section>
             <section className="mb-6">
               <h2 className="text-2xl font-semibold">Projects</h2>
               <ul>
-                {/* {user.projects.map(project => (
-            <li key={project.id} className="text-gray-700">{project.name}</li>
-          ))} */}
+             
                 uvuid
               </ul>
             </section>
-          </div>
-          <div className="max-w-4xl mx-auto my-5 p-6 bg-white shadow-lg rounded-lg ">
+          </div> */}
+
+          {/* <div className="max-w-4xl mx-auto my-5 p-6 bg-white shadow-lg rounded-lg ">
             <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-blue-500">
+              <h1 className="text-3xl font-bold text-purple-600">
                 what learned till now
               </h1>
             </header>
@@ -639,22 +638,19 @@ function UserProfile() {
             <section className="mb-6">
               <h2 className="text-2xl font-semibold">what we provide</h2>
               <ul>
-                {/* {user.skills.map(skill => (
-            <li key={skill} className="text-gray-700">- {skill}</li>
-          ))} */}
+              
                 making toy@@@@
               </ul>
             </section>
             <section className="mb-6">
               <h2 className="text-2xl font-semibold">Projects</h2>
               <ul>
-                {/* {user.projects.map(project => (
-            <li key={project.id} className="text-gray-700">{project.name}</li>
-          ))} */}
                 uvuid
               </ul>
             </section>
-          </div>
+          </div> */}
+
+
         </div>
       </div>
     </>

@@ -14,7 +14,7 @@ const useGetConversations = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5900/conversation", {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/conversation`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

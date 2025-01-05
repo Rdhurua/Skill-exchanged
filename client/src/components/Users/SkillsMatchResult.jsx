@@ -24,7 +24,7 @@ useEffect(() => {
   const getMessage = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5900/messages/getMessage`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/messages/getMessage`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +135,7 @@ const handleConversation = async (id) => {
           <ul className="flex flex-wrap gap-3 mt-2">
             {user.Skills.map((skill, skillIndex) => (
               <li key={skillIndex}
-                className="px-4 py-2 bg-blue-200 text-blue-700 rounded-lg shadow-sm font-semibold">
+                className="px-4 py-2 bg-purple-200 text-purple-700 rounded-lg shadow-sm font-semibold">
                 {skill}
               </li>
             ))}
@@ -151,7 +151,7 @@ const handleConversation = async (id) => {
               {user.Course.map((course, courseIndex) => (
                 <li
                   key={courseIndex}
-                  className="px-4 py-2 bg-blue-200 text-blue-700 rounded-lg shadow-sm font-semibold"
+                  className="px-4 py-2 bg-purple-200 text-purple-700 rounded-lg shadow-sm font-semibold"
                 >
                   {course}
                 </li>

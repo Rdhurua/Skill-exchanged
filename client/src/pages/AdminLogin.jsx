@@ -30,7 +30,7 @@ const AdminLogin = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await fetch('http://localhost:5900/admin/login', {
+          const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admin/login`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ const AdminLogin = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg py-3 transition-colors duration-200"
+          className="w-full text-white bg-purple-600 hover:bg-purple-700 font-medium rounded-lg py-3 transition-colors duration-200"
         >
           Login to your account
         </button>
@@ -129,7 +129,7 @@ const AdminLogin = () => {
       {/* Register Link */}
       <p className="text-sm font-medium text-gray-500 text-center mt-4">
         Don't have an account?{' '}
-        <Link to="/AdminRegister" className="text-blue-600 hover:underline">
+        <Link to="/AdminRegister" className="text-purple-600 hover:underline">
           Create account
         </Link>
       </p>

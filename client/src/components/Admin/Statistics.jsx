@@ -25,7 +25,7 @@ const Statistics = () => {
   useEffect(() => {
     const fetchStatistics = async () => {
       try {
-        const response = await fetch('http://localhost:5900/admin/statistics');
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admin/statistics`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }

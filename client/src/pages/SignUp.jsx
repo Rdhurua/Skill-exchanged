@@ -30,7 +30,7 @@ const CreateAccountForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5900/users/register', {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ const CreateAccountForm = () => {
           text: "you have successfuly registered",
           icon: "success"
         }).then(() => {
-          navigate("/");
+          navigate("/login");
         })
         setFormData({
           name: "",
@@ -164,7 +164,7 @@ const CreateAccountForm = () => {
 
             <button
               type="submit"
-              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300"
+              className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-300"
             >
               Create Account
             </button>

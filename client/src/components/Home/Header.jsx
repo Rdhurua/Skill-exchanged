@@ -20,7 +20,6 @@ const Header = () => {
     <div className="bg-gradient-to-r from-rose-100 to-teal-100 text-black p-4 sticky top-0 z-30 shadow-md shadow-black">
       <nav className="flex flex-col md:flex-row md:justify-between md:items-center max-w-7xl mx-auto">
 
-        {/* Logo and Title */}
         <div className="flex justify-between items-center w-full lg:w-auto ">
           <a href="/">
             <div className="flex items-center space-x-3">
@@ -29,9 +28,8 @@ const Header = () => {
             </div>
           </a>
 
-          {/* Hamburger Menu Button (Visible on small screens) */}
           <div className="md:hidden">
-            <button onClick={toggleMenu} className="focus:outline-none text-blue-600">
+            <button onClick={toggleMenu} className="focus:outline-none text-purple-600">
 
               <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 {isOpen ? <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /> : <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m0 6H4" />}
@@ -56,7 +54,7 @@ const Header = () => {
         {dropdownOpen && (
           <ul className="absolute left-0 mt-2 bg-gray-200 rounded-md shadow-lg py-6 px-4">
             <li>
-              <Link to={"/AdminLogin"} className="block px-4 py-2 text-lg font-semibold hover:bg-blue-500 hover:text-white ">Admin</Link>
+              <Link to={"/AdminLogin"} className="block px-4 py-1 text-lg font-semibold hover:bg-purple-600 hover:text-white ">Admin</Link>
             </li>
               <div className='w-full h-[0.5px] bg-black'></div>
             <li><Logindia value={false} handle={toggleDropdown} /></li>
@@ -94,14 +92,14 @@ const Header = () => {
     <li className="relative">
       <button
         onClick={toggleDropdown}
-        className="text-lg bg-blue-500 py-1 px-3 rounded-lg text-white font-semibold focus:outline-none"
+        className="text-lg bg-purple-600 py-1 px-3 rounded-lg text-white font-semibold focus:outline-none"
       >
         Login
       </button>
       {dropdownOpen && (
         <ul className="absolute left-0 mt-2 bg-gray-200 rounded-md shadow-lg py-2">
           <li>
-            <Link to="/login" className="block px-4 py-2 hover:bg-blue-500 hover:text-white">
+            <Link to="/login" className="block px-4 py-2 hover:bg-purple-500 hover:text-white">
               Admin
             </Link>
           </li>

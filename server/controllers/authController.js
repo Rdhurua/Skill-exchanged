@@ -102,7 +102,7 @@ export const userProfile=async function(req,res){
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-      res.json({ user});
+      res.status(201).json( {user});
     } catch (error) {
       res.status(500).json({ message: "Server error" });
     }

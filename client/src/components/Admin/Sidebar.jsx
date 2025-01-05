@@ -6,7 +6,7 @@ const Sidebar = ({ setActiveSection }) => {
   const handleLogout = async () => {
 
     try {
-      const response = await fetch("http://localhost:5900/admin/logout", {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admin/logout`, {
         method: "GET",
       headers:{'Content-Type':"application/json"}
       });

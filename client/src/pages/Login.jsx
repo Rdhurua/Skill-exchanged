@@ -32,7 +32,7 @@ const Logindia = ({ value,handle}) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5900/users/logout", {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/users/logout`, {
         method: "POST",
       headers:{'Content-Type':"application/json"}
       });
@@ -70,10 +70,10 @@ const Logindia = ({ value,handle}) => {
     }));
   };
 
-  const goToProfile = async () => {
+  const goToProfile = async (userId) => {
     //  console.log("running");
     try {
-      const response = await axios.get('http://localhost:5900/users/profile', {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/profile`, {
         headers: {
           'Content-Type': 'application/json', 
         },
@@ -94,7 +94,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const response = await axios.post(
-      'http://localhost:5900/users/login',
+      `${import.meta.env.VITE_BASE_URL}/users/login`,
       formData, 
       {
         headers: {
@@ -117,7 +117,7 @@ const handleSubmit = async (e) => {
         text: `Hey ${result.user.name}! ${result.message}`,
         icon: "success",
       }).then(() => {
-        goToProfile();
+        goToProfile(result._id);
         handleClose();
         handlecheck();
       });
@@ -144,7 +144,7 @@ const handleSubmit = async (e) => {
     <>
       <button
         onClick={check==true? handleLogout : handleOpen}
-        className="block  px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-semibold  hover:bg-blue-600 bg-blue-500 hover:text-white  md:bg-transparent text-nowrap"
+        className="block  px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-semibold  hover:bg-purple-700 bg-purple-600 hover:text-white  md:bg-transparent text-nowrap"
         type="button"
       >
         {check==true ?"userLogout" : "userLogIn"}
@@ -257,7 +257,7 @@ const handleSubmit = async (e) => {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 shadow-lg transition-colors duration-200"
+                    className="w-full text-white bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-3 shadow-lg transition-colors duration-200"
                   >
                     Login to your account
                   </button>
@@ -272,7 +272,7 @@ const handleSubmit = async (e) => {
                  >
                    Create account
                  </a> */}
-                  <Link to={"/CreateAccount"} className="text-blue-600 hover:underline dark:text-blue-500">CreateAccount</Link>
+                  <Link to={"/CreateAccount"} className="text-purple-600 hover:underline dark:text-purple-500">CreateAccount</Link>
                 </p>
               </div>
             </div>
