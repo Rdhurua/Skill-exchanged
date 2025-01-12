@@ -153,12 +153,11 @@ function UserProfile() {
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // Get the selected file
-    //  console.log(data.profilePicture.data);
+    setFile(e.target.files[0]); 
   };
 
   //uploading picture
-  const handleSubmit = async (e) => {
+  const handlePictureUpload = async (e) => {
 
     e.preventDefault();
 
@@ -240,7 +239,7 @@ function UserProfile() {
                 className="w-32 h-32 rounded-full object-cover border-2 border-purple-500"
               />
               <form
-                onSubmit={handleSubmit}
+                onSubmit={handlePictureUpload}
                 className="absolute top-0 left-0 flex flex-col items-center justify-center w-full h-full opacity-0 group-hover:opacity-100 bg-black bg-opacity-40 rounded-full"
               >
                 <label
@@ -304,19 +303,10 @@ function UserProfile() {
             </button>
             <button
               className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-purple-500 hover:text-white border-b-2 border-gray-200 rounded-md"
-              onClick={() => toggleDiv(4)}
+              onClick={() => goToSection("userContact")}
             >
               Contact Me
             </button>
-            {/* <button
-              className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:bg-purple-500 hover:text-white border-b-2 border-gray-200 rounded-md"
-              onClick={() => toggleDiv(5)}
-            >
-              What I Have Learned?
-            </button>
-            <button className="py-3 md:my-1 lg:my-2 px-6 md:py-1 lg:py-3 text-md lg:text-lg font-semibold text-left hover:purplelue-500 hover:text-white border-b-2 border-gray-200 rounded-md">
-              Hello
-            </button> */}
           </div>
         </div>
 
@@ -584,73 +574,8 @@ function UserProfile() {
                 Send an Email
               </a>
 
-              {/* Chat Request Button */}
-              {/* <button
-                onClick={() => alert("Chat request sent!")}
-                className="block w-full text-center px-4 py-2 bg-green-500 text-white font-semibold rounded shadow hover:bg-green-600 transition duration-200"
-              >
-                Send Chat Request
-              </button> */}
             </section>
           </div>
-
-          {/* <div
-            className="max-w-4xl mx-auto my-5 p-6 bg-white shadow-lg rounded-lg "
-            id="userLearnt"
-          >
-            <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-purple-600">
-                what learned till now
-              </h1>
-            </header>
-
-            <section className="mb-6">
-              <h2 className="text-2xl font-semibold">About</h2>
-              <p>Hobbies</p>
-            </section>
-            <section className="mb-6">
-              <h2 className="text-2xl font-semibold">what we provide</h2>
-              <ul>
-                
-                making toy@@@@
-              </ul>
-            </section>
-            <section className="mb-6">
-              <h2 className="text-2xl font-semibold">Projects</h2>
-              <ul>
-             
-                uvuid
-              </ul>
-            </section>
-          </div> */}
-
-          {/* <div className="max-w-4xl mx-auto my-5 p-6 bg-white shadow-lg rounded-lg ">
-            <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-purple-600">
-                what learned till now
-              </h1>
-            </header>
-
-            <section className="mb-6">
-              <h2 className="text-2xl font-semibold">About</h2>
-              <p>Hobbies</p>
-            </section>
-            <section className="mb-6">
-              <h2 className="text-2xl font-semibold">what we provide</h2>
-              <ul>
-              
-                making toy@@@@
-              </ul>
-            </section>
-            <section className="mb-6">
-              <h2 className="text-2xl font-semibold">Projects</h2>
-              <ul>
-                uvuid
-              </ul>
-            </section>
-          </div> */}
-
-
         </div>
       </div>
     </>

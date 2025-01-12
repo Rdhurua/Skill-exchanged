@@ -25,6 +25,7 @@ const Dashbard = () => {
 
   const handleSendRequest1 = () => {
     navigate(`/userProfile/${userId}`);
+    console.log(authUser);
   };
   const handleSendRequest2 = () => {
     navigate(`/`); 

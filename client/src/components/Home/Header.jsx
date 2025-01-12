@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // Toggle the mobile menu
-  // const [value,setValue]=useContext();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };

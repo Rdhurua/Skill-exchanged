@@ -71,9 +71,11 @@ const handleConversation = async (id) => {
       if (viewProfile && key === index) {
         setViewProfile(false);
         setKey(null);
+        
       } else {
         setViewProfile(true);
         setKey(index);
+        setIsOverlayOpen(true);
       }
     };
 

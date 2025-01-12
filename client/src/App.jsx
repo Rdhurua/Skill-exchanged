@@ -5,6 +5,7 @@ import Hero from './components/Home/Hero.jsx';
 import Features from './components/Home/Features.jsx';
 import Footer from './components/Home/Footer.jsx';
 import About from './components/Home/About.jsx';
+import FAQ from './components/Home/Faq.jsx';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Hero />
       <About/>
       <Features />
+      <FAQ/>
       <Footer />
     </div>
   );
