@@ -28,7 +28,7 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-gradient-to-r from-rose-100 to-teal-100 py-12" id="Faq">
+    <section className="bg-[#ddeded] py-12" id="Faq">
       <div className="container mx-auto px-8 lg:px-32">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
           Frequently Asked Questions

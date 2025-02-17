@@ -15,7 +15,7 @@ const Header = () => {
     setDropdownOpen(!dropdownOpen);
   };
   return (
-    <div className="bg-gradient-to-r from-rose-100 to-teal-100 text-black p-4 sticky top-0 z-30 shadow-md shadow-black">
+    <div className="bg-[#ddeded] text-black p-4 sticky top-0 z-30 shadow-md shadow-black">
       <nav className="flex flex-col md:flex-row md:justify-between md:items-center max-w-7xl mx-auto">
 
         <div className="flex justify-between items-center w-full lg:w-auto ">

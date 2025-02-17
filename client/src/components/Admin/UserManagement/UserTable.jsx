@@ -51,7 +51,7 @@ const UserTable = () => {
 
   const handleUpdateUser = async (id, updatedData) => {
     try {
-      const response = await fetch(`http://localhost:5900/users/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/users/${id}`, {
         method: 'PUT', // Update request
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ const UserTable = () => {
   
   const handleDeleteUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5900/admin/users/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/admin/users/${id}`, {
         method: 'DELETE',
       });
   

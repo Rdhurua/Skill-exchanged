@@ -77,7 +77,7 @@ const Logindia = ({ value,handle}) => {
         headers: {
           'Content-Type': 'application/json', 
         },
-        withCredentials: true, // Include cookies for authentication if needed
+        withCredentials: true,
       });
   
       const userdata = response.data.user; 
@@ -202,7 +202,7 @@ const handleSubmit = async (e) => {
                       name="email"
                       id="email"
                       className="mt-2 w-full p-3 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 block dark:border-gray-500 dark:placeholder-gray-400"
-                      placeholder="name@company.com"
+                      placeholder="name@gmail.com"
                       onChange={handleChange}
                       value={formData.email}
                       required
@@ -223,7 +223,7 @@ const handleSubmit = async (e) => {
                       name="password"
                       id="password"
                       placeholder="••••••••"
-                      className="mt-2 w-3/4 p-3 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 block dark:border-gray-500 dark:placeholder-gray-400"
+                      className="mt-2 w-[85%] p-3 bg-white border border-gray-300 text-gray-900 text-sm rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 block dark:border-gray-500 dark:placeholder-gray-400"
                       value={formData.password}
                       onChange={handleChange}
                       required

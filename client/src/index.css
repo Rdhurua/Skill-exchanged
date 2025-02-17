@@ -7,7 +7,8 @@ html{
 }
 body{
    
-     @apply bg-gradient-to-r from-rose-100 to-teal-100
+     /* @apply bg-gradient-to-r from-rose-100 to-teal-100 */
+     @apply bg-[#ebf6f5]
       
 }
 table tr:hover {

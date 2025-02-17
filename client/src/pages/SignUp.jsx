@@ -2,9 +2,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2";
+import { FaEye } from "react-icons/fa";
+import { BsEyeSlashFill } from "react-icons/bs";
 import axios from 'axios'
 const CreateAccountForm = () => {
   const navigate = useNavigate();
+  const [shown,setShown]=useState(false);
+  const handleShown=()=>setShown(!shown);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -119,25 +123,29 @@ const CreateAccountForm = () => {
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Password
               </label>
+              <div className='flex justify-between items-center'>
               <input
-                type="password"
+                type={shown?"text":"password"}
                 name="password"
                 id="password"
                 value={formData.password}
                 onChange={handleChange}
                 required
                 autoComplete="off"
-                className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="mt-1 w-[98%] p-2  border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Enter your password"
-              />
+              />{shown?<BsEyeSlashFill className='text-2xl ml-2' onClick={handleShown} />:< FaEye className='text-2xl ml-2' onClick={handleShown} />}
+              </div>
             </div>
 
             <div className="mb-4">
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                 Confirm Password
               </label>
+
+              <div className='flex justify-between items-center'>
               <input
-                type="password"
+                type={shown?"text":"password"}
                 name="confirmPassword"
                 id="confirmPassword"
                 value={formData.confirmPassword}
@@ -146,7 +154,8 @@ const CreateAccountForm = () => {
                 autoComplete="off"
                 className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Confirm your password"
-              />
+              />{shown?<BsEyeSlashFill className='text-2xl ml-2' onClick={handleShown} />:< FaEye className='text-2xl ml-2' onClick={handleShown} />}
+              </div>
             </div>
 
 
