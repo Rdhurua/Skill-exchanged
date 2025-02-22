@@ -42,13 +42,12 @@ const AdminLogin = () => {
           });
     
           const result = await response.json();
-          // console.log('Server response:', result);
     
           if (response.ok) {
     
             Swal.fire({
               title: "Wow!",
-              text: ` Welcome Admin ${result.name},You have successfully logged in.`,
+              text: ` Welcome Admin ${result.admin.username},You have successfully logged in.`,
               icon: "success",
             });
               navigate("/adminDashboard");

@@ -96,11 +96,11 @@ const Header = () => {
       </button>
       {dropdownOpen && (
         <ul className="absolute left-0 mt-2 bg-gray-200 rounded-md shadow-lg py-2">
-          <li>
-            <Link to="/login" className="block px-4 py-2 hover:bg-purple-500 hover:text-white">
+          {/* <li >
+            <Link to="/login" className="block  px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-semibold  hover:bg-purple-700  hover:text-white  md:bg-transparent text-nowrap">
               Admin
             </Link>
-          </li>
+          </li> */}
           <li>
             <Logindia value={false} handle={toggleDropdown} />
           </li>

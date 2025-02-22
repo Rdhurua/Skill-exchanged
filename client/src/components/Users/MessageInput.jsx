@@ -13,13 +13,9 @@ const MessageInput = () => {
      setMessage("");
    };
 
-
-
-
-
   return (
     <div class="flex items-center bg-gray-50 rounded-lg shadow-md p-4">
-       <form onSubmit={handleSubmit}>
+       <form onSubmit={handleSubmit} className='flex'>
 
     <input 
       type="text" 
@@ -33,8 +29,6 @@ const MessageInput = () => {
     >
       Send
     </button>
-
-
        </form>
   </div>
   

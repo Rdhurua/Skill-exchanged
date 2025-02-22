@@ -30,7 +30,7 @@ const Features=[
   return (
     <section className="py-10 md:py-20" id='Features'>
     <div className="max-w-7xl mx-auto text-center min-h-screen px-4 sm:px-6 lg:px-8">
-  <h3 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-10">We are here for</h3>
+  <h3 className="text-4xl text-black text-center font-bold mb-6 transition-all duration-700 ease-in-out opacity-0 animate-fade-in">We are here for</h3>
   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
     {Features.map((feature, index) => (
       <div
