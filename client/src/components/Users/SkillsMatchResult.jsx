@@ -180,21 +180,24 @@ const handleConversation = async (id) => {
 
 
      {isMessageContainerOpen && (
-  <div className="fixed inset-0 z-50 bg-gradient-to-r from-violet-200 to-pink-200 flex items-center justify-center">
-    {/* Close Button */}
-    <button
-      className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-3xl"
-      onClick={() => { setIsMessageContainerOpen(false);setIsOverlayOpen(true);setSelectedConversation(null);}}
-><IoMdCloseCircle /></button>
+  <div className="fixed inset-0 z-50 bg-gradient-to-r from-violet-200 to-pink-200 flex items-center justify-center p-4 sm:p-6 md:p-8">
+  {/* Close Button */}
+  <button
+    className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-3xl"
+    onClick={() => { setIsMessageContainerOpen(false); setIsOverlayOpen(true); setSelectedConversation(null); }}
+  >
+    <IoMdCloseCircle />
+  </button>
 
-    {/* Message Container */}
-    <div className="p-6 w-full max-w-3xl bg-gray-100 rounded-lg shadow-lg mx-4">
-      <h2 className="text-xl font-semibold text-center mb-6">
-        Chat with {user.name}
-      </h2>
-      <MessageContainer/>
-    </div>
+  {/* Message Container */}
+  <div className="p-4 sm:p-6 w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl bg-gray-100 rounded-lg shadow-lg mx-2 sm:mx-4">
+    <h2 className="text-lg sm:text-xl font-semibold text-center mb-4 sm:mb-6">
+      Chat with {user.name}
+    </h2>
+    <MessageContainer />
   </div>
+</div>
+
           )}
 
     </div>

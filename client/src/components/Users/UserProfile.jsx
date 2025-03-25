@@ -222,7 +222,7 @@ function UserProfile() {
   return (
     <>
       <div className="flex flex-col md:flex-row md:justify-between w-full h-full bg-gray-100">
-        {/* {goToProfile()} */}
+        
         <ToastContainer />
         {/* left controller */}
 
@@ -268,7 +268,7 @@ function UserProfile() {
             <div className="flex justify-between mt-4 py-2">
               <Link to={`/dashboard/${userId}`}>
                 <button className="bg-green-500 hover:bg-green-600 mx-2 text-white text-md font-semibold rounded-md px-3 py-2">
-                  Dashboard
+                  Skill-Matching
                 </button>
               </Link>
 

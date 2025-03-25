@@ -113,8 +113,7 @@ const handleSubmit = async (e) => {
       
 
       Swal.fire({
-        title: "Wow!",
-        text: `Hey ${result.user.name}! ${result.message}`,
+        text: `${result.message}`,
         icon: "success",
       }).then(() => {
         goToProfile(result._id);

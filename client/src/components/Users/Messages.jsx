@@ -41,18 +41,19 @@ const Messages = () => {
 
   return (
     <div
-      ref={containerRef}
-      className="flex flex-col h-full bg-gray-50 rounded-lg shadow-md overflow-y-auto p-4"
-    >
-      {messages.map((message, idx) => (
-        <div
-          key={message._id}
-          ref={idx === messages.length - 1 ? lastMessageRef : null}
-        >
-          <Message message={message} />
-        </div>
-      ))}
-    </div>
+    ref={containerRef}
+    className="flex flex-col h-full bg-gray-50 rounded-lg shadow-md overflow-y-auto p-3 sm:p-4 md:p-6 max-w-3xl mx-auto"
+  >
+    {messages.map((message, idx) => (
+      <div
+        key={message._id}
+        ref={idx === messages.length - 1 ? lastMessageRef : null}
+        className="mb-2 sm:mb-3"
+      >
+        <Message message={message} />
+      </div>
+    ))}
+  </div>
   );
 };
 

@@ -17,19 +17,20 @@ const Message = ({message}) => {
 
   return (
     <>
-    <div class={className}>
-      <img 
-        src={imageSrc}
-        alt="User" 
-        class="w-10 h-10 rounded-full border border-gray-300"
-      />
-      <div class={`ml-4  p-3 rounded-lg shadow-sm flex flex-col justify-right ${textColor}`}>
-        <p class="text-sm ">{message.message}</p>
-        <span class="text-xs">{Time}</span>
-        <span class="text-xs">{Date}</span>
-
-      </div>
+   <div class={className}>
+  <img 
+    src={imageSrc}
+    alt="User" 
+    class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-gray-300"
+  />
+  <div class={`ml-3 sm:ml-4 p-2 sm:p-3 rounded-lg shadow-sm flex flex-col ${textColor} bg-amber-100 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg break-words w-auto`}> 
+    <p class="text-xs sm:text-sm">{message.message}</p>
+    <div class="flex justify-between text-gray-500 text-xs mt-1">
+      <span>{Time}</span>
+      <span>{Date}</span>
     </div>
+  </div>
+</div>
    {/* <div class="flex items-center justify-end mb-4">
       <div class="mr-4 bg-blue-500 text-white p-3 rounded-lg shadow-sm">
         <p  class="text-sm">Hi, this is a reply!</p>
