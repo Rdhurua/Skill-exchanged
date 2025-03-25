@@ -18,3 +18,17 @@ export  const conversationController =async(req,res)=>{
      }
 
 }
+
+export const conversationsAll=async (req, res) => {
+   const { userId } = req.params;  // Get userId from URL params
+
+   try {
+       const conversations = await ConversationModel.find({
+           participants: { $in: [userId] }  // Find all conversations where user is a participant
+       }).sort({ updatedAt: -1 });
+        //  console.log(conversations);
+       res.status(200).json(conversations);
+   } catch (error) {
+       res.status(500).json({ message: "Error fetching conversations", error: error.message });
+   }
+};

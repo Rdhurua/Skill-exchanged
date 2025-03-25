@@ -3,6 +3,7 @@ import { useState,useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SkillsMatching from "../components/Users/SkillsMatching";
 import {useAuthContext} from "../Authroute/AuthContext.jsx"
+import Notification from "../components/Users/Notifications.jsx";
 
 const Dashbard = () => {
   const { userId } = useParams();
@@ -48,6 +49,7 @@ const Dashbard = () => {
         >
           userProfile
         </button>
+        <Notification userId={userId}/>
       </div>
 
       <div className="flex flex-col items-center mt-4 p-16">
