@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { IoMdCloseCircle } from "react-icons/io";
 import MessageContainer from "./MessageContainer.jsx"
 import useConversation from "../../zustand/useConversation.js"
-import useGetMessage from '../../hooks/useGetMessages.js';
-import { useAuthContext } from '../../Authroute/AuthContext.jsx';
+// import useGetMessage from '../../hooks/useGetMessages.js';
+// import { useAuthContext } from '../../Authroute/AuthContext.jsx';
 
 const SkillsMatchResult = ({results,checker,participant1}) => {
 
@@ -15,8 +15,7 @@ const [isOverlayOpen, setIsOverlayOpen] = useState(true);
 const [isMessageContainerOpen, setIsMessageContainerOpen] = useState(false);
 const {setMessages,setSelectedConversation,selectedConversation,setLoggedId}=useConversation()
 
-const [currentParticipant, setCurrentParticipant] = useState(null); // Store current participant's ID
-
+const [currentParticipant, setCurrentParticipant] = useState(null); //connecting to id
 
 useEffect(() => {
   let intervalId; // To store the interval ID

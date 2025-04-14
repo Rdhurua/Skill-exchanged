@@ -1,6 +1,7 @@
 import express  from "express";
-import { registeredUser, loginUser,
-    logoutUser,userProfile,uploadPicture, getInfo,updateDetails,skillMatch}  from "../controllers/authController.js";
+import { registeredUser, loginUser,logoutUser,userProfile,uploadPicture,
+     getInfo,updateDetails,skillMatch,
+     Info}  from "../controllers/authController.js";
 import addMiddleware from "../middleware/isLoggin.js";
 import validation from "../middleware/isValid.js";
     const router =express.Router();
@@ -18,6 +19,7 @@ router.get("/profile",addMiddleware,userProfile);
 
 router.post("/uploadPicture",uploadPicture);
 router.get("/getUserProfile/:userId",getInfo);
+router.get("/getInfo/:userId",Info);
 
 router.put("/update/:userId",updateDetails)
 router.post("/skillMatch/",skillMatch)

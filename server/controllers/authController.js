@@ -155,11 +155,48 @@ try {
       profilePic: user.profilePicture.data, // Include profile picture
     },
   });
+  // res.status(200).json({
+  //   message: "User profile fetched successfully",
+  //   user
+  // });
 } catch (error) {
   console.error(error);
   res.status(500).json({ message: "Error fetching user profile" });
 }
 }
+
+
+//for notification chat
+export const Info=async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await userModel.findById(userId).select("-password");
+  
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+  
+    // res.status(200).json({
+    //   message: "User profile fetched successfully",
+    //   user: {
+    //     name: user.name,
+    //     email: user.email,
+    //     profilePic: user.profilePicture.data, // Include profile picture
+    //   },
+    // });
+    //
+     res.status(200).json({
+      message: "User profile fetched successfully",
+      user
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching user profile" });
+  }
+  }
+
+
+
 
 export const updateDetails=async(req,res)=>{
   let userId=req.params.userId;

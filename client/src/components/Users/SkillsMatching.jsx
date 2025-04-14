@@ -47,6 +47,7 @@ const SkillsMatching =({userId} ) => {
 
         if (response.status === 200) {
           setResults(response.data);
+          // console.log(results);
           setChecker(true);
         } else {
           alert("Some error is encountered");

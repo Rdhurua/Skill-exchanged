@@ -59,7 +59,7 @@ function Hero() {
             <img
               src={image}
               alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover"
+              // className="w-full h-full object-cover"
             />
           </div>
         ))}
