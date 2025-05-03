@@ -11,7 +11,7 @@ const SkillsMatching =({userId} ) => {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [results, setResults] = useState([]);
   const [checker, setChecker] = useState(false);
-  const availableSkills = ["Farming","Weaving","Crafting","Teaching","web developing",];
+  const availableSkills = ["Farming","Weaving","Crafting","Teaching","making-incense","Tailoring","Fungiculture"];
 
   const { authUser,setAuthUser } = useAuthContext();
  const navigate=useNavigate();

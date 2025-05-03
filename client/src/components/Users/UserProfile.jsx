@@ -467,7 +467,7 @@ function UserProfile() {
                     toggleValue(1); // Set visibleDiv to 0 to indicate this section is active
                   }}
                 >
-                  {data.about ? "Edit" : "Add"}
+                  {data.Skills ? "Edit" : "Add"}
                 </button>
               )}
             </div>
@@ -539,7 +539,7 @@ function UserProfile() {
                     toggleValue(2); // Set visibleDiv to 0 to indicate this section is active
                   }}
                 >
-                  {data.about ? "Edit" : "Add"}
+                  {data.Course? "Edit" : "Add"}
                 </button>
               )}
             </div>
@@ -550,13 +550,13 @@ function UserProfile() {
             id="userContact"
           >
             <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-purple-600">Contact Me</h1>
+              <h1 className="text-3xl font-bold text-purple-600">Contact Details</h1>
             </header>
 
             {/* About Section */}
             <section className="mb-6">
-              <h2 className="text-lg  mb-2">
-                hello, you can connect with me through following media
+              <h2 className="text-lg  mb-2 text-center">
+                add your Contact Details
               </h2>
             </section>
 

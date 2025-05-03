@@ -240,6 +240,7 @@ export const skillMatch = async (req, res) => {
         : { _id: { $ne: userId } } 
     );
 
+
     res.status(200).json(users);
   } catch (error) {
     console.error("Error fetching users:", error);
