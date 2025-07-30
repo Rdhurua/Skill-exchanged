@@ -14,7 +14,7 @@ const Logindia = ({ value,handle}) => {
    const [shown,setShown]=useState(false);
 
   const { authUser,setAuthUser } = useAuthContext();
-   const {setLoggedId,setMe}=useConversation();
+   const {setLoggedId,setMe,me}=useConversation();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -105,11 +105,12 @@ const handleSubmit = async (e) => {
     );
 
     const result = response.data;
-      // console.log(result);
+      console.log(result);
       setLoggedId(result._id);
       localStorage.setItem("skill-exchange-user",JSON.stringify(result));
       setAuthUser(result);
-      setMe(result.profilePicture);
+      setMe(result.user.profilePicture);
+      //  console.log(result.user.profilePicture);
       
 
       Swal.fire({

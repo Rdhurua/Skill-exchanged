@@ -9,7 +9,7 @@ const Message = ({message}) => {
   
  const fromHim=(message.senderId===selectedConversation._id);
   const className=fromHim?"flex items-center mb-4":"flex items-center justify-end mb-4";
-  const imageSrc=fromHim?selectedConversation.profilePicture.data:"https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg";
+  const imageSrc=fromHim?selectedConversation.profilePicture.data:me;
   const textColor=fromHim?"bg-pink-300 text-black":"bg-amber-100 text-black";
 
   const Time = extractDateTime(message.createdAt).time;

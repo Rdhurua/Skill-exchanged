@@ -13,6 +13,7 @@ import SkillsMatching from './components/Users/SkillsMatching.jsx'
 import Dashboard from './pages/Dashbard.jsx'
 import MessageContainer from "./components/Users/MessageContainer.jsx"
 import AdminDashboard from './components/Admin/AdminDashboard.jsx'
+import Contact from './components/Home/Contact.jsx'
 
 const Routing = () => {
   return <AuthProvider>
@@ -22,6 +23,7 @@ const Routing = () => {
     <Route path='/' element={<App/>} />
     <Route path='/CreateAccount' element={<CreateAccount/>} />
     <Route path='/AdminLogin' element={<AdminLogin/>} />
+    <Route path='/contact' element={<Contact/>}/>
     <Route path='/adminDashboard' element={<AdminDashboard/>} />
 
     <Route path='/AdminRegister' element={<AdminCreate/>} />
