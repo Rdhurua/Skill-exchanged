@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   return (
@@ -8,7 +8,8 @@ const Footer = () => {
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">About Us</h2>
           <p className="text-sm">
-            Skill-Exchange is a platform where individuals connect, share, and learn new skills from each other. Join us and grow your expertise!
+            Skill-Exchanger is a platform where individuals connect, share, and
+            learn new skills from each other. Join us and grow your expertise!
           </p>
         </div>
 
@@ -17,25 +18,41 @@ const Footer = () => {
           <h2 className="text-white text-lg font-semibold mb-4">Quick Links</h2>
           <ul className="space-y-2">
             <li>
-              <a href="#About" className="hover:text-white transition">About</a>
+              <a href="#About" className="hover:text-white transition">
+                About
+              </a>
             </li>
             <li>
-              <a href="#" className="hover:text-white transition">How It Works</a>
+              <a href="#" className="hover:text-white transition">
+                How It Works
+              </a>
             </li>
             <li>
-              <a href="#" className="hover:text-white transition">Contact</a>
+              <a href="#" className="hover:text-white transition">
+                Contact
+              </a>
             </li>
             <li>
-              <a href="#Faq" className="hover:text-white transition">FAQs</a>
+              <a href="#Faq" className="hover:text-white transition">
+                FAQs
+              </a>
             </li>
           </ul>
         </div>
 
         {/* Contact & Socials */}
         <div>
-          <h2 className="text-white text-lg font-semibold mb-4">Stay Connected</h2>
+          <h2 className="text-white text-lg font-semibold mb-4">
+            Stay Connected
+          </h2>
           <p className="text-sm mb-4">
-            Email us at: <a href="mailto:support@skill-exchange.com" className="text-blue-400 hover:underline">support@skill-exchange.com</a>
+            Email us at:{" "}
+            <a
+              href="mailto:support@skill-exchange.com"
+              className="text-blue-400 hover:underline"
+            >
+              support@skill-exchange.com
+            </a>
           </p>
           <div className="flex space-x-4">
             <a href="#" className="text-gray-400 hover:text-white transition">
@@ -56,7 +73,10 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="mt-8 border-t border-gray-700 pt-4 text-center text-sm">
-        <p>&copy; {new Date().getFullYear()} Skill-Exchange. All Rights Reserved.</p>
+        <p>
+          &copy; {new Date().getFullYear()} Skill-Exchanger. All Rights
+          Reserved.
+        </p>
       </div>
     </footer>
   );

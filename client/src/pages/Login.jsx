@@ -141,7 +141,7 @@ const handleSubmit = async (e) => {
     <>
       <button
         onClick={check==true? handleLogout : handleOpen}
-        className="block  px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-semibold  hover:bg-purple-700  hover:text-white  md:bg-transparent text-nowrap"
+        className="block  px-14 py-2  md:px-4  lg:px-3 lg:py-1 text-lg md:text-md font-semibold rounded-md hover:bg-purple-700  hover:text-white  md:bg-transparent text-nowrap"
         type="button"
       >
         {check==true ?"userLogout" : "userLogIn"}

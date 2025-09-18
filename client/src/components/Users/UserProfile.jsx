@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useId } from "react";
+import React, { useState, useEffect} from "react";
 import {useNavigate ,Link, useParams } from "react-router-dom";
 import { FaUserEdit } from "react-icons/fa";
 import axios from "axios";
@@ -11,6 +11,20 @@ import { showToastMessage2,showToastMessage } from "../../utils/Toasting.js";
 function UserProfile() {
   const { userId } = useParams();
   const [data, setData] = useState({});
+  const navigate = useNavigate();
+  const [fault, setDefault] = useState(true);
+  const [visibleDiv, setVisibleDiv] = useState(null);
+  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [newAbout, setNewAbout] = useState(data.about);
+  const [newSkills, setNewSkills] = useState(data.Skills );
+  const [newCourse, setNewCoures] = useState(data.Course);
+  const [newLearnt, setNewLearnt] = useState(data.learnt);
 
 
   const goToProfile = async () => {
@@ -38,30 +52,10 @@ function UserProfile() {
     goToProfile();
   }, [userId]);
 
-  const navigate = useNavigate();
-
-  const [fault, setDefault] = useState(true);
-  const [visibleDiv, setVisibleDiv] = useState(null);
-
-  const [file, setFile] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  const [isEditing, setIsEditing] = useState(false);
-  
-
-  const [newAbout, setNewAbout] = useState(data.about);
-  const [newSkills, setNewSkills] = useState(data.Skills );
-  const [newCourse, setNewCoures] = useState(data.Course);
-  const [newLearnt, setNewLearnt] = useState(data.learnt);
-
-
+ 
   const handleEditClick = () => {
-    setIsEditing(true); // Enable edit mode
-    setNewAbout(data.about); // Set the current about text
+    setIsEditing(true); 
+    setNewAbout(data.about); 
     setNewSkills(data.Skills);
     setNewCoures(data.Course);
   };
@@ -105,8 +99,6 @@ function UserProfile() {
       alert("Error updating profile!");
     }
   };
-
-
 
 
   const toggleValue = (index) => {
@@ -183,7 +175,7 @@ function UserProfile() {
         setUploading(false);
         setMessage("Profile picture uploaded successfully!");
         showToastMessage(message);
-        console.log("Response:", response.data);
+        // console.log("Response:", response.data);
         setUser((prevUser) => ({
           ...prevUser,
           profilePic: response.data.profilePicUrl,
@@ -204,8 +196,7 @@ function UserProfile() {
         `${import.meta.env.VITE_BASE_URL}/users/getUserProfile/${userId}`
       );
 
-      setUser(response.data.user); // Set the user data
-      console.log(user);
+      setUser(response.data.user); 
       setLoading(false);
    
     } catch (err) {
@@ -224,7 +215,6 @@ function UserProfile() {
       <div className="flex flex-col md:flex-row md:justify-between w-full h-full bg-gray-100">
         
         <ToastContainer />
-        {/* left controller */}
 
         <div className="w-[95%] mx-2 md:w-1/2 lg:w-1/4 md:h-[90vh] lg:h-[100vh] md:mx-4 bg-white flex flex-col my-5  md:sticky md:top-14 lg:top-2">
           {/* Profile Section */}
@@ -310,7 +300,6 @@ function UserProfile() {
           </div>
         </div>
 
-        {/* rightcontainer */}
         <div className=" w-full lg:w-3/4 mx-auto my-5 p-6  rounded-lg shadow-lg md:p-8">
           {
             <div className="w-full lg:w-2/3 h-auto mx-auto my-5 p-6 bg-white  rounded-lg ">
@@ -539,7 +528,7 @@ function UserProfile() {
                     toggleValue(2); // Set visibleDiv to 0 to indicate this section is active
                   }}
                 >
-                  {data.Course? "Edit" : "Add"}
+                  { (data.Course &&data.Course.length>0)? "Edit" : "Add"}
                 </button>
               )}
             </div>

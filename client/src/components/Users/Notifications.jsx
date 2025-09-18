@@ -5,11 +5,13 @@ import MessageContainer from "./MessageContainer";
 import axios from "axios";
 
 const Notification = ({ userId }) => {
+
   const [notifications, setNotifications] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isMessageContainerOpen, setIsMessageContainerOpen] = useState(false);
   const [isOverlayOpen, setIsOverlayOpen] = useState(true);
   const {setMessages,setSelectedConversation,selectedConversation,setLoggedId}= useConversation();
+  
 const [currentParticipant, setCurrentParticipant] = useState(null); 
 const[loading,setLoading]=useState(false);
  

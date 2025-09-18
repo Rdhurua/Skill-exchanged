@@ -7,8 +7,7 @@ import adminRouter from "./routes/adminsRouter.js";
 import messageRouter from "./routes/message.route.js"
 import conversationRouter from "./routes/conversation.route.js"
 import User from './model/user-model.js'; 
-import bodyParser from "body-parser";
-import path from 'path';
+
 import {app,io,server} from "./socket.js";
 import dotenv from 'dotenv';
 import cron from 'node-cron'
