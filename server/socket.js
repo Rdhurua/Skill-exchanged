@@ -22,7 +22,7 @@ const io = new Server(server, {
   const userSocketMap={};
 
   io.on('connection', (socket) => {
-    console.log("user connected:", socket.id);
+    // console.log("user connected:", socket.id);
   
     const userId = socket.handshake.query.userId;
     if (userId !== undefined) {
@@ -34,7 +34,7 @@ const io = new Server(server, {
   
     // Handle socket disconnection
     socket.on('disconnect', () => {
-      console.log("user is disconnected:", socket.id);
+      // console.log("user is disconnected:", socket.id);
       delete userSocketMap[userId];
       io.emit("getOnlineUsers", Object.keys(userSocketMap));
     });

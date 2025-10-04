@@ -115,7 +115,7 @@ function UserProfile() {
     if (storedUser) {
       setAuthUser(JSON.parse(storedUser));
     }
-  }, []);
+  }, [authUser]);
 
 
   const handleLogout = async (e) => {
