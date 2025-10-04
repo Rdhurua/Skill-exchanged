@@ -27,6 +27,17 @@ function UserProfile() {
   const [newLearnt, setNewLearnt] = useState(data.learnt);
 
 
+const { authUser,setAuthUser } = useAuthContext();
+
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("skill-exchange-user");
+    if (storedUser) {
+      setAuthUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+
   const goToProfile = async () => {
     try {
       setLoading(true);
@@ -39,7 +50,7 @@ function UserProfile() {
       const userdata = response.data.user;
       //  console.log(userdata);
       setData(userdata);
-       console.log(data);
+      //  console.log(data);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -50,7 +61,7 @@ function UserProfile() {
 
   useEffect(() => {
     goToProfile();
-  }, [userId]);
+  }, []);
 
  
   const handleEditClick = () => {
@@ -85,7 +96,7 @@ function UserProfile() {
         ...prevData,
         ...updatedDetails,
       }));
-      console.log(data);
+      // console.log(data);
 
       showToastMessage("Profile updated successfully!");
       fetchUserProfile();
@@ -102,20 +113,12 @@ function UserProfile() {
 
 
   const toggleValue = (index) => {
-    console.log(visibleDiv);
+    // console.log(visibleDiv);
     setDefault(false);
     setVisibleDiv(index);
   };
 
-  const { authUser,setAuthUser } = useAuthContext();
-
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("skill-exchange-user");
-    if (storedUser) {
-      setAuthUser(JSON.parse(storedUser));
-    }
-  }, [authUser]);
+  
 
 
   const handleLogout = async (e) => {

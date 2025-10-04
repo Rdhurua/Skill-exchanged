@@ -20,7 +20,7 @@ const SkillsMatching =({userId} ) => {
     if (storedUser) {
       setAuthUser(JSON.parse(storedUser));
     }
-  }, [authUser]);
+  }, []);
 
 
 
