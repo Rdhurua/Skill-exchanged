@@ -2,12 +2,11 @@ import React  from 'react'
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
 import useConversation from '../../zustand/useConversation';
-import useGetMessage from '../../hooks/useGetMessages';
+
 
 import { useState } from 'react';
 
 const MessageContainer = () => {
-  //  const{loading}=useGetMessage();
    const{selectedConversation}=useConversation();
    const [value,setValue]=useState(false);
 
@@ -15,7 +14,6 @@ const MessageContainer = () => {
   return (
     <div class="flex flex-col h-[90vh] bg-gray-100 border border-black p-4 sm:p-6 md:p-8">
  
-    {/* Header */}
     <div class="flex items-center bg-white p-4 rounded-lg shadow-md mb-4 w-full max-w-3xl mx-auto">
       <img 
         src={selectedConversation.profilePicture.data} 

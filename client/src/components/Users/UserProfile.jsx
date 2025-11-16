@@ -172,7 +172,7 @@ const { authUser,setAuthUser } = useAuthContext();
           {
               image: reader.result, // Sending the Base64 string
               userId: data._id, // Replacing this with the actual user ID
-          },
+          }
          
       );
         setUploading(false);
@@ -537,37 +537,7 @@ const { authUser,setAuthUser } = useAuthContext();
             </div>
           </div>
 
-          <div
-            className="max-w-4xl mx-auto my-5 p-6 bg-white shadow-lg rounded-lg"
-            id="userContact"
-          >
-            <header className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-purple-600">Contact Details</h1>
-            </header>
-
-            {/* About Section */}
-            <section className="mb-6">
-              <h2 className="text-lg  mb-2 text-center">
-                add your Contact Details
-              </h2>
-            </section>
-
-            {/* Contact Details Section */}
-            <section className="mb-6">
-              <h2 className="text-lg font-semibold mb-2">Contact Details</h2>
-
-              {/* Email Button */}
-              <a
-                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${data.email}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block mb-4 text-center px-4 py-2 bg-purple-500 text-white font-semibold rounded shadow hover:bg-purple-600 transition duration-200"
-              >
-                Send an Email
-              </a>
-
-            </section>
-          </div>
+         
         </div>
       </div>
     </>

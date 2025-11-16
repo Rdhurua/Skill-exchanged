@@ -14,9 +14,9 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div>
-          <h2 className="text-white text-lg font-semibold mb-4">Quick Links</h2>
-          <ul className="space-y-2">
+        <div >
+          <h2 className="text-white text-lg font-semibold mb-4 text-center">Quick Links</h2>
+          <ul className="w-full flex flex-col justify-center items-center ">
             <li>
               <a href="#About" className="hover:text-white transition">
                 About
@@ -55,16 +55,16 @@ const Footer = () => {
             </a>
           </p>
           <div className="flex space-x-4">
-            <a href="#" className="text-gray-400 hover:text-white transition">
+            <a href="#" className="text-white hover:text-white transition">
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a href="#" className="text-gray-400 hover:text-white transition">
+            <a href="#" className="text-white hover:text-white transition">
               <i className="fab fa-twitter"></i>
             </a>
-            <a href="#" className="text-gray-400 hover:text-white transition">
+            <a href="#" className="text-white hover:text-white transition">
               <i className="fab fa-linkedin-in"></i>
             </a>
-            <a href="#" className="text-gray-400 hover:text-white transition">
+            <a href="#" className="text-white hover:text-white transition">
               <i className="fab fa-instagram"></i>
             </a>
           </div>

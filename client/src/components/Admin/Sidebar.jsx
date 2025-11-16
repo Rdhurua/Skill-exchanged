@@ -1,6 +1,7 @@
 import React from 'react';
 import {showToastMessage,showToastMessage2} from "../../utils/Toasting.js"
 import { useNavigate } from 'react-router-dom';
+import { IoLogOutOutline } from "react-icons/io5";
 const Sidebar = ({ setActiveSection }) => {
    const navigate=useNavigate();
   const handleLogout = async () => {
@@ -28,7 +29,7 @@ const Sidebar = ({ setActiveSection }) => {
   };
 
   return (
-    <div className="bg-blue-900 text-white w-full md:w-64 h-auto md:h-full flex flex-col">
+    <div className="bg-gray-900 text-white w-full md:w-64 h-auto md:h-full flex flex-col">
   {/* Header */}
   <div className="p-6 text-2xl font-bold flex justify-center">
     Admin Panel
@@ -38,7 +39,7 @@ const Sidebar = ({ setActiveSection }) => {
   <nav className="flex-1">
     <button
       onClick={() => setActiveSection('statistics')}
-      className="w-full py-3 px-4 text-left hover:bg-blue-700"
+      className="w-full py-3 px-4 text-left hover:bg-blue-700 border-gray border-b"
     >
       Statistics
     </button>
@@ -53,9 +54,9 @@ const Sidebar = ({ setActiveSection }) => {
   {/* Logout */}
   <button
     onClick={handleLogout}
-    className="py-3 px-4 bg-red-600 hover:bg-red-700"
+    className="py-3 px-4 bg-white text-gray-900 flex justify-center gap-2 items-center text-xl font-semibold"
   >
-    Logout
+    Logout <IoLogOutOutline className='text-2xl' />
   </button>
 </div>
 

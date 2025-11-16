@@ -31,12 +31,6 @@ const Message = ({message}) => {
     </div>
   </div>
 </div>
-   {/* <div class="flex items-center justify-end mb-4">
-      <div class="mr-4 bg-blue-500 text-white p-3 rounded-lg shadow-sm">
-        <p  class="text-sm">Hi, this is a reply!</p>
-        <span class="text-xs text-gray-200">2:35 PM</span>
-      </div>
-    </div> */}
    
   </>
   )
