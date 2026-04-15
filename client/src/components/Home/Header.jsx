@@ -88,7 +88,7 @@ const Header = () => {
           </li>
           <li>
             <a
-              href="#"
+              href="/contact"
               className="hover:underline text-lg hover:text-black font-semibold"
             >
               Contact

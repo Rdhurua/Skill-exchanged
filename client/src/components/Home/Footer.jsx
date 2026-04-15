@@ -48,10 +48,10 @@ const Footer = () => {
           <p className="text-sm mb-4">
             Email us at:{" "}
             <a
-              href="mailto:support@skill-exchange.com"
+              href="mailto:supportskillexchanger@gmail.com"
               className="text-blue-400 hover:underline"
             >
-              support@skill-exchange.com
+              supportskillexchanger@gmail.com
             </a>
           </p>
           <div className="flex space-x-4">
